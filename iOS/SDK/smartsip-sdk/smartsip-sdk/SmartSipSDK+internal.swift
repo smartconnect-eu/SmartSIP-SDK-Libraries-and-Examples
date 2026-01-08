@@ -1,5 +1,5 @@
 //
-//  smartsip_sdk+internal.swift
+//  SmartSipSDK+internal.swift
 //  smartsip-sdk
 //
 //  Created by Franz Iacob on 08/01/2026.
@@ -139,6 +139,7 @@ extension SmartSipSDK {
         Logger.sdk.info("SIP User: \(session.username)")
         
         // TODO: Integrate your SIP library here
+
         
         Logger.sdk.info("📞 Call in progress with SessionID: \(session.sessionId)")
     }

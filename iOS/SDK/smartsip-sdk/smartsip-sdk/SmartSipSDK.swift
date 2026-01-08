@@ -1,5 +1,5 @@
 //
-//  smartsip_sdk.swift
+//  SmartSipSDK+internal.swift
 //  smartsip-sdk
 //
 //  Created by Franz Iacob on 08/01/2026.
@@ -16,6 +16,10 @@ public final class SmartSipSDK {
     internal var token: String!
     internal var flowId: String!
     internal var domain: String!
+    
+    /// Internal reference to the listener.
+    /// Private to ensure it can only be set via the `makeCall` method.
+    private weak var delegate: CallDelegate?
     
     private init() {}
     
@@ -46,20 +50,38 @@ public final class SmartSipSDK {
         isInitialized = true
     }
     
-    /// Fetches the available call destinations from the SmartSIP API.
+    /**
+     Retrieves authorized call targets from the middleware
+     
+     This function initiates a connection with the server. Upon a successful handshake,
+     it returns a list of identifiers that the current user is permitted to dial.
+     
+     - Note: Ensure the network is reachable before calling this method.
+     - Returns: An array of `CallDestination` strings representing available peers.
+     */
     public func getCallDestinations() async -> [CallDestination] {
         return await performGetCallDestinations()
     }
     
-    /// High-level function to create a session and immediately initiate the SIP call.
-        public func makeCall(
+    /**
+     Retrieves authorized call targets from the middleware
+     
+     This function initiates a connection with the server. Upon a successful handshake,
+     it returns a list of identifiers that the current user is permitted to dial.
+     
+     - Note: Ensure the network is reachable before calling this method.
+     - Returns: An array of `CallDestination` strings representing available peers.
+     */
+    public func makeCall(
+            delegate: CallDelegate,
             clientData: [String: Any]? = nil,
             destination: String? = nil,
             phoneNumber: String? = nil,
             userFullName: String? = nil,
             otherRoutingData: [String: Any]? = nil
         ) async {
-            // 1. Create the session first
+            self.delegate = delegate
+            //Create the session first
             guard let session = await performCreateSession(
                 clientData: clientData,
                 destination: destination,
@@ -67,7 +89,7 @@ public final class SmartSipSDK {
                 userFullName: userFullName,
                 otherRoutingData: otherRoutingData
             ) else {
-                Logger.sdk.error("❌ makeCall failed: Could not establish session.")
+                Logger.sdk.error("❌ makeCall failed: Could not establish Smartconnect session.")
                 return
             }
             
