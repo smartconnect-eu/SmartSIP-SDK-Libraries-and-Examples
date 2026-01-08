@@ -1,0 +1,28 @@
+.DS_Store
+Android/.DS_Store
+iOS/.DS_Store
+iOS/SDK/.DS_Store
+iOS/SDK/smartsip-sdk/.DS_Store
+iOS/SDK/smartsip-sdk/DerivedData/.DS_Store
+/iOS/SDK/smartsip-sdk/DerivedData
+/iOS/SDK/smartsip-sdk/DerivedData/smartsip-sdk/Build
+iOS/SDK/smartsip-sdk/DerivedData/smartsip-sdk/Build/Intermediates.noindex/XCBuildData/PIFCache/project/PROJECT@v11_mod=6ed20d791c3c71d5d4e9cc7c31168b1e_hash=68a242b60a94aae3784de5432be7d06fplugins=1OJSG6M1FOV3XYQCBH7Z29RZ0FPR9XDE1-json
+iOS/SDK/smartsip-sdk/DerivedData/smartsip-sdk/Build/Intermediates.noindex/XCBuildData/PIFCache/target/TARGET@v11_hash=0ecf7eb9c8f5eb6f970e239467641d29-json
+iOS/SDK/smartsip-sdk/DerivedData/smartsip-sdk/Build/Intermediates.noindex/XCBuildData/PIFCache/workspace/WORKSPACE@v11_hash=4f410fe09c1dce8ce648c8010acd90ea_subobjects=2122c08771fcd59a6cd39e2b0efd027c-json
+iOS/SDK/smartsip-sdk/DerivedData/smartsip-sdk/Index.noindex/UniDB/smartsip-sdk.xcindex/v13/p6588--ec3501/data.mdb
+iOS/SDK/smartsip-sdk/DerivedData/smartsip-sdk/Index.noindex/UniDB/smartsip-sdk.xcindex/v13/p6588--ec3501/lock.mdb
+iOS/SDK/smartsip-sdk/DerivedData/smartsip-sdk/info.plist
+iOS/SDK/smartsip-sdk/DerivedData/smartsip-sdk/Localization/Tables.plist
+iOS/SDK/smartsip-sdk/DerivedData/smartsip-sdk/Localization/Timestamps.plist
+iOS/SDK/smartsip-sdk/DerivedData/smartsip-sdk/Logs/Build/LogStoreManifest.plist
+iOS/SDK/smartsip-sdk/DerivedData/smartsip-sdk/Logs/Console/LogStoreManifest.plist
+iOS/SDK/smartsip-sdk/DerivedData/smartsip-sdk/Logs/GameKit Configuration/LogStoreManifest.plist
+iOS/SDK/smartsip-sdk/DerivedData/smartsip-sdk/Logs/Install/LogStoreManifest.plist
+iOS/SDK/smartsip-sdk/DerivedData/smartsip-sdk/Logs/Launch/LogStoreManifest.plist
+iOS/SDK/smartsip-sdk/DerivedData/smartsip-sdk/Logs/Localization/LogStoreManifest.plist
+iOS/SDK/smartsip-sdk/DerivedData/smartsip-sdk/Logs/Package/LogStoreManifest.plist
+iOS/SDK/smartsip-sdk/DerivedData/smartsip-sdk/Logs/Test/LogStoreManifest.plist
+iOS/SDK/smartsip-sdk/DerivedData/smartsip-sdk/Logs/Update Signing/LogStoreManifest.plist
+iOS/SDK/smartsip-sdk/DerivedData/smartsip-sdk/scm.plist
+iOS/SDK/smartsip-sdk/DerivedData/SymbolCache.noindex/iPhoneSimulator26.2.sdk iphonesimulator (23C53)/Info.plist
+/iOS/SDK/smartsip-sdk/DerivedData
