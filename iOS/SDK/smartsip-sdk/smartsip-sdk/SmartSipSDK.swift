@@ -7,6 +7,7 @@
 
 import Foundation
 import os
+internal import linphonesw
 
 public final class SmartSipSDK {
     
@@ -20,6 +21,11 @@ public final class SmartSipSDK {
     /// Internal reference to the listener.
     /// Private to ensure it can only be set via the `makeCall` method.
     private weak var delegate: CallDelegate?
+    
+    ///Sip core reference
+    var mCore: Core!
+    ///Sip core delegate
+    private var mCoreDelegate : CoreDelegate!
     
     private init() {}
     

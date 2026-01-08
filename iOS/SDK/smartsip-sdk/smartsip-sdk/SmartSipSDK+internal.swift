@@ -7,9 +7,25 @@
 
 import Foundation
 import os
-import linphonesw
+internal import linphonesw
 
 extension SmartSipSDK {
+    
+    
+    // MARK: - Internal Dependencies initialization
+    internal func initializeDependencies() {
+        //iniitalize the linphonesw code
+        do
+        {
+            mCore = try Factory.Instance.createCore(configPath: "", factoryConfigPath: "", systemContext: nil)
+            mCore.videoCaptureEnabled = false
+            mCore.videoDisplayEnabled = false
+            mCore.videoActivationPolicy!.automaticallyAccept = false
+            try mCore.setMediaencryption(newValue: .SRTP)
+        }catch {
+            Logger.sdk.error("❌ initializeDependencies linphonesw error: \(error.localizedDescription)")
+        }
+    }
     
     // MARK: - Internal Network Logic
     internal func performGetCallDestinations() async -> [CallDestination] {
@@ -135,6 +151,7 @@ extension SmartSipSDK {
     // MARK: - Internal SIP Logic
     /// Performs the actual SIP registration and call initiation.
     internal func performSIPCall(with session: SessionResult) async {
+        //to perform a SIP call we will use the linphone framework
         Logger.sdk.info("🚀 Initiating SIP Call...")
         Logger.sdk.info("SIP Server: \(session.server):\(session.port)")
         Logger.sdk.info("SIP User: \(session.username)")
