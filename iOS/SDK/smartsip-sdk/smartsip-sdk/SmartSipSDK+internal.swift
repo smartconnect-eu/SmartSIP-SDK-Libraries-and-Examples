@@ -7,6 +7,7 @@
 
 import Foundation
 import os
+import linphonesw
 
 extension SmartSipSDK {
     
@@ -142,5 +143,10 @@ extension SmartSipSDK {
 
         
         Logger.sdk.info("📞 Call in progress with SessionID: \(session.sessionId)")
+    }
+    
+    public func setDebugMode(enabled: Bool) {
+        //linphoneManager.setLogging(enabled: enabled);
+        LoggingService.Instance.logLevel = enabled ? LogLevel.Error : LogLevel.Debug;
     }
 }

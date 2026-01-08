@@ -96,4 +96,12 @@ public final class SmartSipSDK {
             // 2. Use the session result to perform the actual SIP call
             await performSIPCall(with: session)
         }
+    
+    
+    /// Sets the logging level. By default you will only get the errors.
+    /// If you need further information to debug more please enable it.
+    public func setSIPDebugMode(enabled: Bool) {
+        setDebugMode(enabled: enabled)
+    }
+    
 }
