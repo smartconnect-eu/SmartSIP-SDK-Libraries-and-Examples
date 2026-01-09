@@ -76,15 +76,15 @@ public final class SmartSipSDK {
      */
     public func makeCall(
             clientData: [String: Any]? = nil,
-            destination: String? = nil,
+            destinationQueue: String? = nil,
             phoneNumber: String? = nil,
             userFullName: String? = nil,
             otherRoutingData: [String: Any]? = nil
         ) async {
             //Create the session first
-            guard let callInfo = await performCreateSession(
+            guard var callInfo = await performCreateSession(
                 clientData: clientData,
-                destination: destination,
+                destinationQueue: destinationQueue,
                 phoneNumber: phoneNumber,
                 userFullName: userFullName,
                 otherRoutingData: otherRoutingData
@@ -93,6 +93,7 @@ public final class SmartSipSDK {
                 return
             }
             
+            callInfo.callerFullName = userFullName
             // 2. Use the session result to perform the actual SIP call
             await performSIPCall(with: callInfo)
         }

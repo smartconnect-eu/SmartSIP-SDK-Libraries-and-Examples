@@ -7,8 +7,9 @@
 
 public struct CallInfo {
     public let sessionId: String
-    public let server: String
+    public let domain: String
     public let port: Int
     public let username: String
     public let password: String
+    public var callerFullName: String?
 }

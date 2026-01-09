@@ -41,7 +41,7 @@ extension SmartSipSDK {
 
     internal func performCreateSession(
         clientData: [String: Any]?,
-        destination: String?,
+        destinationQueue: String?,
         phoneNumber: String?,
         userFullName: String?,
         otherRoutingData: [String: Any]?
@@ -54,7 +54,7 @@ extension SmartSipSDK {
 
         // Build Routing Data Dictionary
         var routingData: [String: Any] = [:]
-        if let requested = destination { routingData["webphone-requested"] = requested }
+        if let requested = destinationQueue { routingData["webphone-requested"] = requested }
         if let ani = phoneNumber { routingData["webphone-ani"] = ani }
         if let name = userFullName { routingData["webphone-name"] = name }
         
@@ -106,7 +106,7 @@ extension SmartSipSDK {
               let connectionRoot = json["connection"] as? [String: Any],
               let innerConnection = connectionRoot["connection"] as? [String: Any],
               let sip = innerConnection["sip"] as? [String: Any],
-              let server = sip["server"] as? String,
+              let domain = sip["server"] as? String,
               let username = sip["username"] as? String,
               let password = sip["password"] as? String else {
             Logger.sdk.error("❌ Validation Error: Response missing required SIP fields.")
@@ -125,7 +125,7 @@ extension SmartSipSDK {
     
         return CallInfo(
             sessionId: sessionId,
-            server: server,
+            domain: domain,
             port: port,
             username: username,
             password: password
@@ -134,9 +134,9 @@ extension SmartSipSDK {
     
     // MARK: - Internal SIP Logic
     /// Performs the actual SIP registration and call initiation.
-    internal func performSIPCall(with session: CallInfo) async {
+    internal func performSIPCall(with callInfo: CallInfo) async {
         //to perform a SIP call we will use the linphone framework
-        
+        await sipCore.makeCall(callInfo: callInfo)
     }
     
     public func setDebugMode(enabled: Bool) {
