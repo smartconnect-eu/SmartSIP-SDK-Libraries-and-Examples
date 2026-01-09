@@ -13,6 +13,7 @@ public final class PhoneCore {
     
     private var mCore: Core!
     private var phoneCoreDelegate: CallDelegate?
+    private var callInfo: CallInfo!
 
     public required init()
     {
@@ -63,6 +64,7 @@ public final class PhoneCore {
     
     public func makeCall(callInfo: CallInfo!) async
     {
+        self.callInfo = callInfo;
         Logger.sdk.info("🚀 Initiating SIP Call...")
         Logger.sdk.info("SIP Server: \(callInfo.domain):\(callInfo.port)")
         Logger.sdk.info("SIP User: \(callInfo.username)")
@@ -70,7 +72,6 @@ public final class PhoneCore {
         //login into the SIP server
         let callerName = callInfo.callerFullName ?? "Anonymous"
         let callerAddress : String = "sip:\(callerName)@\(callInfo.domain)"
-        let callingAddress : String = "sip:queue@\(callInfo.domain)"
         
         do
         {
@@ -123,6 +124,42 @@ public final class PhoneCore {
         //
         
         Logger.sdk.info("📞 Call in progress with SessionID: \(callInfo.sessionId)")
+    }
+    
+    
+    func outgoingCall() {
+        do {
+            // As for everything we need to get the SIP URI of the remote and convert it to an Address
+            let callingAddress : String = "sip:queue@\(self.callInfo.domain)"
+            let remoteAddress = try Factory.Instance.createAddress(addr: callingAddress)
+            
+            // We also need a CallParams object
+            // Create call params expects a Call object for incoming calls, but for outgoing we must use null safely
+            let params = try mCore.createCallParams(call: nil)
+            let callerName = self.callInfo.callerFullName ?? "Anonymous"
+            params.addCustomHeader(headerName: "X-SmartSip-session", headerValue: callerName)
+            
+            // Finally we start the call
+            let _ = mCore.inviteAddressWithParams(addr: remoteAddress, params: params)
+            // Call process can be followed in onCallStateChanged callback from core listener
+        } catch { NSLog(error.localizedDescription) }
+        
+    }
+    
+    func terminateCall() {
+        do {
+            if (mCore.callsNb == 0) { return }
+            
+            // If the call state isn't paused, we can get it using core.currentCall
+            let coreCall = (mCore.currentCall != nil) ? mCore.currentCall : mCore.calls[0]
+            
+            // Terminating a call is quite simple
+            if let call = coreCall {
+                try call.terminate()
+            }
+        } catch {
+            Logger.sdk.error("❌ Terminate call failed with error: \(error.localizedDescription)")
+        }
     }
     
     
