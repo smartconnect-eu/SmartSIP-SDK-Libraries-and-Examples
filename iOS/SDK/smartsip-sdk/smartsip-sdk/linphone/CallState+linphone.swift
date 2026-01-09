@@ -35,5 +35,18 @@ extension CallState {
             return nil
         }
     }
+    
+    static func from(linphoneState: RegistrationState) -> CallState? {
+        switch linphoneState {
+        case .Ok:
+            return .loggedIn
+            
+        case .Progress, .Refreshing:
+            return .loginInProgress
+    
+        default:
+            return .loggedOut
+        }
+    }
 }
 

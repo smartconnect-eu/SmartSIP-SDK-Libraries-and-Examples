@@ -7,7 +7,6 @@
 
 import Foundation
 import os
-internal import linphonesw
 
 public final class SmartSipSDK {
     
@@ -23,23 +22,20 @@ public final class SmartSipSDK {
     private weak var delegate: CallDelegate?
     
     ///Sip core reference
-    var mCore: Core!
-    ///Sip core delegate
-    private var mCoreDelegate : CoreDelegate!
+    var sipCore: PhoneCore!
+   
     
-    private init() {}
+    private init() {
+        sipCore = PhoneCore();
+    }
+    
+    public func  setDelegate(_ delegate: CallDelegate) {
+        self.delegate = delegate
+    }
     
     // MARK: - Models
     
     public typealias CallDestination = String
-    
-    public struct SessionResult {
-        public let sessionId: String
-        public let server: String
-        public let port: Int
-        public let username: String
-        public let password: String
-    }
     
     // MARK: - Public API
     /// Initializes the SDK with the required middleware credentials.
@@ -79,16 +75,14 @@ public final class SmartSipSDK {
      - Returns: An array of `CallDestination` strings representing available peers.
      */
     public func makeCall(
-            delegate: CallDelegate,
             clientData: [String: Any]? = nil,
             destination: String? = nil,
             phoneNumber: String? = nil,
             userFullName: String? = nil,
             otherRoutingData: [String: Any]? = nil
         ) async {
-            self.delegate = delegate
             //Create the session first
-            guard let session = await performCreateSession(
+            guard let callInfo = await performCreateSession(
                 clientData: clientData,
                 destination: destination,
                 phoneNumber: phoneNumber,
@@ -100,7 +94,7 @@ public final class SmartSipSDK {
             }
             
             // 2. Use the session result to perform the actual SIP call
-            await performSIPCall(with: session)
+            await performSIPCall(with: callInfo)
         }
     
     

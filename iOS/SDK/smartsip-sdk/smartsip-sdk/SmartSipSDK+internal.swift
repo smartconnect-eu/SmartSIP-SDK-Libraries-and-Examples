@@ -11,22 +11,6 @@ internal import linphonesw
 
 extension SmartSipSDK {
     
-    
-    // MARK: - Internal Dependencies initialization
-    internal func initializeDependencies() {
-        //iniitalize the linphonesw code
-        do
-        {
-            mCore = try Factory.Instance.createCore(configPath: "", factoryConfigPath: "", systemContext: nil)
-            mCore.videoCaptureEnabled = false
-            mCore.videoDisplayEnabled = false
-            mCore.videoActivationPolicy!.automaticallyAccept = false
-            try mCore.setMediaencryption(newValue: .SRTP)
-        }catch {
-            Logger.sdk.error("❌ initializeDependencies linphonesw error: \(error.localizedDescription)")
-        }
-    }
-    
     // MARK: - Internal Network Logic
     internal func performGetCallDestinations() async -> [CallDestination] {
         guard let flowId = self.flowId, let domain = self.domain, let token = self.token else {
@@ -61,7 +45,7 @@ extension SmartSipSDK {
         phoneNumber: String?,
         userFullName: String?,
         otherRoutingData: [String: Any]?
-    ) async -> SessionResult? {
+    ) async -> CallInfo? {
         
         guard let flowId = self.flowId, let domain = self.domain, let token = self.token else {
             Logger.sdk.error("❌ Cannot create session: SDK not initialized.")
@@ -117,7 +101,7 @@ extension SmartSipSDK {
     }
 
     // MARK: - Result Extraction
-    private func extractSessionResult(from json: [String: Any]) -> SessionResult? {
+    private func extractSessionResult(from json: [String: Any]) -> CallInfo? {
         guard let sessionId = json["sessionId"] as? String,
               let connectionRoot = json["connection"] as? [String: Any],
               let innerConnection = connectionRoot["connection"] as? [String: Any],
@@ -139,7 +123,7 @@ extension SmartSipSDK {
             return nil
         }
     
-        return SessionResult(
+        return CallInfo(
             sessionId: sessionId,
             server: server,
             port: port,
@@ -150,20 +134,12 @@ extension SmartSipSDK {
     
     // MARK: - Internal SIP Logic
     /// Performs the actual SIP registration and call initiation.
-    internal func performSIPCall(with session: SessionResult) async {
+    internal func performSIPCall(with session: CallInfo) async {
         //to perform a SIP call we will use the linphone framework
-        Logger.sdk.info("🚀 Initiating SIP Call...")
-        Logger.sdk.info("SIP Server: \(session.server):\(session.port)")
-        Logger.sdk.info("SIP User: \(session.username)")
         
-        // TODO: Integrate your SIP library here
-
-        
-        Logger.sdk.info("📞 Call in progress with SessionID: \(session.sessionId)")
     }
     
     public func setDebugMode(enabled: Bool) {
-        //linphoneManager.setLogging(enabled: enabled);
         LoggingService.Instance.logLevel = enabled ? LogLevel.Error : LogLevel.Debug;
     }
 }

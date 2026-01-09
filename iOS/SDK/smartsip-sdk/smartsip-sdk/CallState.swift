@@ -7,8 +7,22 @@
 
 import Foundation
 
-/// Represents the high-level states of a call for UI and logic.
+/// Represents the high-level states of the SIP session and individual calls.
 public enum CallState: String {
+    // --- Registration (Login) States ---
+    
+    /// The SDK is authenticating with the SIP proxy.
+    case loginInProgress
+    
+    /// The SDK has successfully authenticated with the SIP proxy.
+    case loggedIn
+    
+    /// The SDK is not connected to the server or has been explicitly logged out.
+    case loggedOut
+    
+    
+    // --- Call Lifecycle States ---
+    
     /// The call is being prepared or waiting for the network.
     case dialing
     
