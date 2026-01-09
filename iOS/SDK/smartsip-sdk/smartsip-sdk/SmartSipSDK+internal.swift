@@ -139,7 +139,8 @@ extension SmartSipSDK {
         await sipCore.makeCall(callInfo: callInfo)
     }
     
-    public func setDebugMode(enabled: Bool) {
-        LoggingService.Instance.logLevel = enabled ? LogLevel.Error : LogLevel.Debug;
+    internal func setDebugMode(enabled: Bool) {
+        sipCore.setDebugMode(enabled: enabled);
     }
+    
 }

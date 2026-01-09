@@ -99,8 +99,9 @@ public final class SmartSipSDK {
         }
     
     
-    /// Sets the logging level. By default you will only get the errors.
-    /// If you need further information to debug more please enable it.
+    /// Configures the verbosity of the underlying SIP stack logs.
+    /// - Parameter enabled: If true, the SDK will output detailed debug information.
+    ///   If false, only critical errors will be logged.
     public func setSIPDebugMode(enabled: Bool) {
         setDebugMode(enabled: enabled)
     }

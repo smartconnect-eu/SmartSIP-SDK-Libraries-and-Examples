@@ -9,13 +9,13 @@ internal import linphonesw
 import os
 import Foundation
 
-public final class PhoneCore {
+internal final class PhoneCore {
     
     private var mCore: Core!
     private var phoneCoreDelegate: CallDelegate?
     private var callInfo: CallInfo!
 
-    public required init()
+    internal required init()
     {
         do
         {
@@ -28,7 +28,7 @@ public final class PhoneCore {
             try mCore.setMediaencryption(newValue: .SRTP)
             
             //feed the state to the core listening for changes, if any
-            var mCoreDelegate = CoreDelegateStub( onCallStateChanged: { (core: Core, call: Call, state: Call.State, message: String) in
+            let mCoreDelegate = CoreDelegateStub( onCallStateChanged: { (core: Core, call: Call, state: Call.State, message: String) in
                 
                 if( state == .Error )
                 {
@@ -47,6 +47,12 @@ public final class PhoneCore {
                 }
                 else
                 {
+                    if ( state == .Ok )
+                    {
+                        Logger.sdk.info("✅ Registered Successfully. Auto-starting the call...")
+                        // This is where we trigger the call immediately after login
+                        self.makeOutgoingCall()
+                    }
                     self.phoneCoreDelegate?.callDidChangeState(CallState.from(linphoneState: state) ?? CallState.loggedOut)
                 }
                 
@@ -58,11 +64,11 @@ public final class PhoneCore {
         }
     }
     
-    public func setDelegate(_ delegate: CallDelegate) {
+    internal func setDelegate(_ delegate: CallDelegate) {
         self.phoneCoreDelegate = delegate
     }
     
-    public func makeCall(callInfo: CallInfo!) async
+    internal func makeCall(callInfo: CallInfo!) async
     {
         self.callInfo = callInfo;
         Logger.sdk.info("🚀 Initiating SIP Call...")
@@ -70,8 +76,7 @@ public final class PhoneCore {
         Logger.sdk.info("SIP User: \(callInfo.username)")
         
         //login into the SIP server
-        let callerName = callInfo.callerFullName ?? "Anonymous"
-        let callerAddress : String = "sip:\(callerName)@\(callInfo.domain)"
+        let callerAddress : String = "sip:\(callInfo.sessionId)@\(callInfo.domain)"
         
         do
         {
@@ -119,47 +124,67 @@ public final class PhoneCore {
         }
         catch
         {
-            Logger.sdk.error("❌ createSession error: \(error.localizedDescription)")
+            Logger.sdk.error("❌ login into SIP server error: \(error.localizedDescription)")
         }
-        //
-        
-        Logger.sdk.info("📞 Call in progress with SessionID: \(callInfo.sessionId)")
+        Logger.sdk.info("🔐 Login in progress with SessionID: \(callInfo.sessionId)")
     }
     
     
-    func outgoingCall() {
+    internal func makeOutgoingCall() {
         do {
-            // As for everything we need to get the SIP URI of the remote and convert it to an Address
-            let callingAddress : String = "sip:queue@\(self.callInfo.domain)"
-            let remoteAddress = try Factory.Instance.createAddress(addr: callingAddress)
+            Logger.sdk.info("📞 Calling Queue: [SessionID: \(self.callInfo.sessionId)]")
             
-            // We also need a CallParams object
-            // Create call params expects a Call object for incoming calls, but for outgoing we must use null safely
+            // Construct the SIP URI for the destination
+            let remoteAddress = try Factory.Instance.createAddress(addr: "sip:queue@\(self.callInfo.domain)")
+            
+            // Configure call parameters
+            // Passing 'nil' to createCallParams signifies a new outgoing call session
             let params = try mCore.createCallParams(call: nil)
-            let callerName = self.callInfo.callerFullName ?? "Anonymous"
-            params.addCustomHeader(headerName: "X-SmartSip-session", headerValue: callerName)
             
-            // Finally we start the call
-            let _ = mCore.inviteAddressWithParams(addr: remoteAddress, params: params)
-            // Call process can be followed in onCallStateChanged callback from core listener
-        } catch { NSLog(error.localizedDescription) }
-        
+            // Attach custom headers for server-side tracking (e.g., SmartSip routing)
+            params.addCustomHeader(headerName: "X-SmartSip-session", headerValue: self.callInfo.sessionId)
+            
+            // Initiate the INVITE request
+            _ = mCore.inviteAddressWithParams(addr: remoteAddress, params: params)
+            
+            // Note: Monitor 'onCallStateChanged' in the CoreListener to track progress
+        } catch {
+            Logger.sdk.error("❌ Outgoing call failed: \(error.localizedDescription)")
+        }
     }
     
-    func terminateCall() {
+
+    internal func terminateCallAndLogout() {
         do {
-            if (mCore.callsNb == 0) { return }
-            
-            // If the call state isn't paused, we can get it using core.currentCall
-            let coreCall = (mCore.currentCall != nil) ? mCore.currentCall : mCore.calls[0]
-            
-            // Terminating a call is quite simple
-            if let call = coreCall {
-                try call.terminate()
+            // Hang up the call if it exists
+            if mCore.callsNb > 0 {
+                let call = mCore.currentCall ?? mCore.calls.first
+                try call?.terminate()
+                Logger.sdk.info("📞 Call terminated by user.")
             }
+            
+            // Unregister and clear to ensure no "ghost" registrations remain
+            // This sends a REGISTER with expires=0 to the server
+            mCore.clearAccounts()
+            mCore.clearAllAuthInfo()
+            
+            Logger.sdk.info("🚪 Session closed and logged out.")
+            
+            // Update UI to initial state
+            self.phoneCoreDelegate?.callDidChangeState(.loggedOut)
+            
         } catch {
-            Logger.sdk.error("❌ Terminate call failed with error: \(error.localizedDescription)")
+            Logger.sdk.error("❌ Error during teardown: \(error.localizedDescription)")
         }
+    }
+    
+    /// Configures the verbosity of the underlying SIP stack logs.
+    /// - Parameter enabled: If true, the SDK will output detailed debug information.
+    ///   If false, only critical errors will be logged.
+    internal func setDebugMode(enabled: Bool) {
+        // Set the global SIP log level.
+        // .Debug provides full trace; .Error restricts output to failures only.
+        LoggingService.Instance.logLevel = enabled ? .Debug : .Error
     }
     
     

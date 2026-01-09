@@ -5,7 +5,7 @@
 //  Created by Franz Iacob on 09/01/2026.
 //
 
-public struct CallInfo {
+internal struct CallInfo {
     public let sessionId: String
     public let domain: String
     public let port: Int
