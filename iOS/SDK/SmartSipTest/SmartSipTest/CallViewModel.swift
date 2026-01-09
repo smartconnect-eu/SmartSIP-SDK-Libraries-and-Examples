@@ -4,53 +4,73 @@
 //
 //  Created by Franz Iacob on 09/01/2026.
 //
-
-import SwiftUI
-import smartsip_sdk // Make sure to import your framework
 import SwiftUI
 import smartsip_sdk
-internal import Combine
+import Combine
 
 @MainActor
-class CallViewModel: ObservableObject { // Remove Delegate here for a moment
+class CallViewModel: ObservableObject {
     
     @Published var callStatus: String = "Idle"
     @Published var isCallActive: Bool = false
+    @Published var destinations: [String] = []
+    @Published var selectedDestination: String = ""
     
     private let sdk = SmartSipSDK.shared
 
     init() {
-        // We set the delegate below
-        sdk.initialize(token: "SS_SA_ZBuDfr7dDD4gF8cJ", flowId: "DF00683B-181D-5665-9AE0-41133D6F9D74", domain: "webrtc.smartcall.cc")
-        sdk.setSIPDebugMode(enabled: true)
-        
-        // This is the key: set the delegate AFTER initialization
+        // 1. Setup SDK basic config
+        sdk.initialize(
+            token: "SS_SA_ZBuDfr7dDD4gF8cJ",
+            flowId: "DF00683B-181D-5665-9AE0-41133D6F9D74",
+            domain: "webrtc.smartcall.cc"
+        )
+        sdk.setSIPDebugMode(enabled: false)
         sdk.setDelegate(self)
+        
+        // 2. Fetch available targets
+        fetchDestinations()
+    }
+
+    private func fetchDestinations() {
+        Task {
+            let targets = await sdk.getCallDestinations()
+            self.destinations = targets
+            // Default to first destination if available
+            if let first = targets.first {
+                self.selectedDestination = first
+            }
+        }
     }
 
     func startTestCall() {
+        guard !selectedDestination.isEmpty else {
+            callStatus = "Error: No destination selected"
+            return
+        }
+        
         callStatus = "Creating Session..."
         Task {
+            // Passing the selected destination to the SDK
             await sdk.makeCall(
-                destinationQueue: "default", userFullName: "Franz Iacob"
+                destinationQueue: selectedDestination,
+                userFullName: "Franz Iacob"
             )
         }
     }
 
     func endTestCall() {
-        sdk.hangUp() // Using the public method we just commented!
+        sdk.hangUp()
         isCallActive = false
         callStatus = "Hanging up..."
     }
 }
 
-// Move the delegate to an extension to make conformance clear to the compiler
 extension CallViewModel: CallDelegate {
-    
     func callDidChangeState(_ state: CallState) {
-        // Since we are on @MainActor, this UI update is safe
         self.callStatus = "State: \(state)"
         
+        // Note: adjust state checks based on your SDK's specific enum names
         if state == .connected {
             isCallActive = true
         } else if state == .disconnected || state == .loggedOut {
