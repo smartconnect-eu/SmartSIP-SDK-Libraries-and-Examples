@@ -16,11 +16,6 @@ public final class SmartSipSDK {
     internal var token: String!
     internal var flowId: String!
     internal var domain: String!
-    
-    /// Internal reference to the listener.
-    /// Private to ensure it can only be set via the `makeCall` method.
-    private weak var delegate: CallDelegate?
-    
     ///Sip core reference
     var sipCore: PhoneCore!
    
@@ -30,7 +25,7 @@ public final class SmartSipSDK {
     }
     
     public func  setDelegate(_ delegate: CallDelegate) {
-        self.delegate = delegate
+        sipCore.setDelegate(delegate)
     }
     
     // MARK: - Models
@@ -98,12 +93,27 @@ public final class SmartSipSDK {
             await performSIPCall(with: callInfo)
         }
     
+    /**
+     Terminates the active call session and unregisters the user from the SIP server.
+    
+     This is the primary method for ending a communication session. It performs a two-step teardown:
+     1. Sends a `BYE` or `CANCEL` request to the remote peer to hang up the call.
+     2. Disconnects from the SIP proxy and clears the account credentials from memory.
+     
+     - Note: Use this method for a "clean slate" exit. After calling this, you must call `makeCall` again to re-register and start a new session.
+     */
+    public func hangUp() {
+        // Triggers the internal SIP core to terminate media and unregister.
+        sipCore.terminateCallAndLogout()
+    }
     
     /// Configures the verbosity of the underlying SIP stack logs.
     /// - Parameter enabled: If true, the SDK will output detailed debug information.
     ///   If false, only critical errors will be logged.
     public func setSIPDebugMode(enabled: Bool) {
-        setDebugMode(enabled: enabled)
+        sipCore.setDebugMode(enabled: enabled);
     }
+    
+  
     
 }

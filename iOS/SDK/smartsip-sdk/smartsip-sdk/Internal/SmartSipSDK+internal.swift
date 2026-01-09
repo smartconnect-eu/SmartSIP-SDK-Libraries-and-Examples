@@ -139,8 +139,5 @@ extension SmartSipSDK {
         await sipCore.makeCall(callInfo: callInfo)
     }
     
-    internal func setDebugMode(enabled: Bool) {
-        sipCore.setDebugMode(enabled: enabled);
-    }
     
 }
