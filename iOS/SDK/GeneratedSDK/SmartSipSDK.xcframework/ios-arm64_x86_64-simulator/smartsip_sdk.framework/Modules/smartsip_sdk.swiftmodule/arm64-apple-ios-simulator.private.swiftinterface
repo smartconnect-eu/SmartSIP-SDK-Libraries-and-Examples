@@ -1,0 +1,53 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 6.2.3 effective-5.10 (swiftlang-6.2.3.3.21 clang-1700.6.3.2)
+// swift-module-flags: -target arm64-apple-ios15.6-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -enable-upcoming-feature DisableOutwardActorInference -enable-upcoming-feature InferSendableFromCaptures -enable-upcoming-feature GlobalActorIsolatedTypesUsability -enable-upcoming-feature MemberImportVisibility -enable-upcoming-feature InferIsolatedConformances -enable-upcoming-feature NonisolatedNonsendingByDefault -enable-experimental-feature DebugDescriptionMacro -enable-bare-slash-regex -module-name smartsip_sdk
+// swift-module-flags-ignorable:  -formal-cxx-interoperability-mode=off -interface-compiler-version 6.2.3
+import Foundation
+import Swift
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+import os
+public protocol CallDelegate : AnyObject {
+  func callDidChangeState(_ state: smartsip_sdk.CallState)
+  func callDidFail(withError error: Swift.String)
+}
+public enum CallState : Swift.String {
+  case loginInProgress
+  case loggedIn
+  case loggedOut
+  case dialing
+  case ringing
+  case connected
+  case held
+  case disconnected
+  case failed
+  #if compiler(>=5.3) && $NonescapableTypes
+  public init?(rawValue: Swift.String)
+  #endif
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers final public class SmartSipSDK {
+  public static let sdkVersion: Swift.String
+  public static let shared: smartsip_sdk.SmartSipSDK
+  final public func setDelegate(_ delegate: any smartsip_sdk.CallDelegate)
+  public typealias CallDestination = Swift.String
+  #if compiler(>=5.3) && $NonescapableTypes
+  final public func initialize(token: Swift.String!, flowId: Swift.String!, domain: Swift.String!)
+  #endif
+  #if compiler(>=5.3) && $AsyncExecutionBehaviorAttributes
+  final nonisolated(nonsending) public func getCallDestinations() async -> [smartsip_sdk.SmartSipSDK.CallDestination]
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes && $AsyncExecutionBehaviorAttributes
+  nonisolated(nonsending) final public func makeCall(clientData: [Swift.String : Any]? = nil, destinationQueue: Swift.String? = nil, phoneNumber: Swift.String? = nil, userFullName: Swift.String? = nil, otherRoutingData: [Swift.String : Any]? = nil) async
+  #endif
+  final public func hangUp()
+  final public func setSIPDebugMode(enabled: Swift.Bool)
+  @objc deinit
+}
+extension smartsip_sdk.CallState : Swift.Equatable {}
+extension smartsip_sdk.CallState : Swift.Hashable {}
+extension smartsip_sdk.CallState : Swift.RawRepresentable {}

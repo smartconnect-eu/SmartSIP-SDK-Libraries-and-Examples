@@ -22,8 +22,8 @@ let package = Package(
         // This URL and Checksum will be managed by the build script
         .binaryTarget(
             name: "SmartSipSDKBinary",
-            url: "https://github.com/your-org/smartsip-public/releases/download/1.0.0/SmartSipSDK.xcframework.zip",
-            checksum: "067b9e367a39d4f291281e7f00882c0180bdf5eebd4c75bb3c3fc53cd1712cd3" 
+            url: "https://github.com/your-org/smartsip-public/releases/download/0.0.1/SmartSipSDK.xcframework.zip",
+            checksum: "8b1c1fcc2ca75f0af89f9058a3c76614ff078e863c7d34e1a6ec7c8d87c9a3be" 
         )
     ]
 )

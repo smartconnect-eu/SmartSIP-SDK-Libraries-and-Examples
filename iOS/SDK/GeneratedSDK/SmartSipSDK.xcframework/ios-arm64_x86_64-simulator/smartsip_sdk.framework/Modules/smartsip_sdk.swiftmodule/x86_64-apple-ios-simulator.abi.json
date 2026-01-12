@@ -1,0 +1,1188 @@
+{
+  "ABIRoot": {
+    "kind": "Root",
+    "name": "smartsip_sdk",
+    "printedName": "smartsip_sdk",
+    "children": [
+      {
+        "kind": "Import",
+        "name": "linphonesw",
+        "printedName": "linphonesw",
+        "declKind": "Import",
+        "moduleName": "smartsip_sdk",
+        "declAttributes": [
+          "AccessControl",
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "linphonesw",
+        "printedName": "linphonesw",
+        "declKind": "Import",
+        "moduleName": "smartsip_sdk",
+        "declAttributes": [
+          "AccessControl",
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "os",
+        "printedName": "os",
+        "declKind": "Import",
+        "moduleName": "smartsip_sdk"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "smartsip_sdk"
+      },
+      {
+        "kind": "Import",
+        "name": "os",
+        "printedName": "os",
+        "declKind": "Import",
+        "moduleName": "smartsip_sdk",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "smartsip_sdk"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "smartsip_sdk",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "os",
+        "printedName": "os",
+        "declKind": "Import",
+        "moduleName": "smartsip_sdk"
+      },
+      {
+        "kind": "Import",
+        "name": "linphonesw",
+        "printedName": "linphonesw",
+        "declKind": "Import",
+        "moduleName": "smartsip_sdk",
+        "declAttributes": [
+          "AccessControl"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "smartsip_sdk",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "CallDelegate",
+        "printedName": "CallDelegate",
+        "children": [
+          {
+            "kind": "Function",
+            "name": "callDidChangeState",
+            "printedName": "callDidChangeState(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "CallState",
+                "printedName": "smartsip_sdk.CallState",
+                "usr": "s:12smartsip_sdk9CallStateO"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:12smartsip_sdk12CallDelegateP18callDidChangeStateyyAA0cH0OF",
+            "mangledName": "$s12smartsip_sdk12CallDelegateP18callDidChangeStateyyAA0cH0OF",
+            "moduleName": "smartsip_sdk",
+            "genericSig": "<τ_0_0 where τ_0_0 : smartsip_sdk.CallDelegate>",
+            "sugared_genericSig": "<Self where Self : smartsip_sdk.CallDelegate>",
+            "protocolReq": true,
+            "declAttributes": [
+              "RawDocComment"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "callDidFail",
+            "printedName": "callDidFail(withError:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:12smartsip_sdk12CallDelegateP11callDidFail9withErrorySS_tF",
+            "mangledName": "$s12smartsip_sdk12CallDelegateP11callDidFail9withErrorySS_tF",
+            "moduleName": "smartsip_sdk",
+            "genericSig": "<τ_0_0 where τ_0_0 : smartsip_sdk.CallDelegate>",
+            "sugared_genericSig": "<Self where Self : smartsip_sdk.CallDelegate>",
+            "protocolReq": true,
+            "declAttributes": [
+              "RawDocComment"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Protocol",
+        "usr": "s:12smartsip_sdk12CallDelegateP",
+        "mangledName": "$s12smartsip_sdk12CallDelegateP",
+        "moduleName": "smartsip_sdk",
+        "genericSig": "<τ_0_0 : AnyObject>",
+        "sugared_genericSig": "<Self : AnyObject>",
+        "declAttributes": [
+          "AccessControl",
+          "RawDocComment"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "smartsip_sdk",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "CallState",
+        "printedName": "CallState",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "loginInProgress",
+            "printedName": "loginInProgress",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(smartsip_sdk.CallState.Type) -> smartsip_sdk.CallState",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "CallState",
+                    "printedName": "smartsip_sdk.CallState",
+                    "usr": "s:12smartsip_sdk9CallStateO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "smartsip_sdk.CallState.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "CallState",
+                        "printedName": "smartsip_sdk.CallState",
+                        "usr": "s:12smartsip_sdk9CallStateO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:12smartsip_sdk9CallStateO15loginInProgressyA2CmF",
+            "mangledName": "$s12smartsip_sdk9CallStateO15loginInProgressyA2CmF",
+            "moduleName": "smartsip_sdk",
+            "declAttributes": [
+              "RawDocComment"
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "loggedIn",
+            "printedName": "loggedIn",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(smartsip_sdk.CallState.Type) -> smartsip_sdk.CallState",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "CallState",
+                    "printedName": "smartsip_sdk.CallState",
+                    "usr": "s:12smartsip_sdk9CallStateO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "smartsip_sdk.CallState.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "CallState",
+                        "printedName": "smartsip_sdk.CallState",
+                        "usr": "s:12smartsip_sdk9CallStateO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:12smartsip_sdk9CallStateO8loggedInyA2CmF",
+            "mangledName": "$s12smartsip_sdk9CallStateO8loggedInyA2CmF",
+            "moduleName": "smartsip_sdk",
+            "declAttributes": [
+              "RawDocComment"
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "loggedOut",
+            "printedName": "loggedOut",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(smartsip_sdk.CallState.Type) -> smartsip_sdk.CallState",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "CallState",
+                    "printedName": "smartsip_sdk.CallState",
+                    "usr": "s:12smartsip_sdk9CallStateO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "smartsip_sdk.CallState.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "CallState",
+                        "printedName": "smartsip_sdk.CallState",
+                        "usr": "s:12smartsip_sdk9CallStateO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:12smartsip_sdk9CallStateO9loggedOutyA2CmF",
+            "mangledName": "$s12smartsip_sdk9CallStateO9loggedOutyA2CmF",
+            "moduleName": "smartsip_sdk",
+            "declAttributes": [
+              "RawDocComment"
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "dialing",
+            "printedName": "dialing",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(smartsip_sdk.CallState.Type) -> smartsip_sdk.CallState",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "CallState",
+                    "printedName": "smartsip_sdk.CallState",
+                    "usr": "s:12smartsip_sdk9CallStateO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "smartsip_sdk.CallState.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "CallState",
+                        "printedName": "smartsip_sdk.CallState",
+                        "usr": "s:12smartsip_sdk9CallStateO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:12smartsip_sdk9CallStateO7dialingyA2CmF",
+            "mangledName": "$s12smartsip_sdk9CallStateO7dialingyA2CmF",
+            "moduleName": "smartsip_sdk",
+            "declAttributes": [
+              "RawDocComment"
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "ringing",
+            "printedName": "ringing",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(smartsip_sdk.CallState.Type) -> smartsip_sdk.CallState",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "CallState",
+                    "printedName": "smartsip_sdk.CallState",
+                    "usr": "s:12smartsip_sdk9CallStateO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "smartsip_sdk.CallState.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "CallState",
+                        "printedName": "smartsip_sdk.CallState",
+                        "usr": "s:12smartsip_sdk9CallStateO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:12smartsip_sdk9CallStateO7ringingyA2CmF",
+            "mangledName": "$s12smartsip_sdk9CallStateO7ringingyA2CmF",
+            "moduleName": "smartsip_sdk",
+            "declAttributes": [
+              "RawDocComment"
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "connected",
+            "printedName": "connected",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(smartsip_sdk.CallState.Type) -> smartsip_sdk.CallState",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "CallState",
+                    "printedName": "smartsip_sdk.CallState",
+                    "usr": "s:12smartsip_sdk9CallStateO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "smartsip_sdk.CallState.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "CallState",
+                        "printedName": "smartsip_sdk.CallState",
+                        "usr": "s:12smartsip_sdk9CallStateO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:12smartsip_sdk9CallStateO9connectedyA2CmF",
+            "mangledName": "$s12smartsip_sdk9CallStateO9connectedyA2CmF",
+            "moduleName": "smartsip_sdk",
+            "declAttributes": [
+              "RawDocComment"
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "held",
+            "printedName": "held",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(smartsip_sdk.CallState.Type) -> smartsip_sdk.CallState",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "CallState",
+                    "printedName": "smartsip_sdk.CallState",
+                    "usr": "s:12smartsip_sdk9CallStateO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "smartsip_sdk.CallState.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "CallState",
+                        "printedName": "smartsip_sdk.CallState",
+                        "usr": "s:12smartsip_sdk9CallStateO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:12smartsip_sdk9CallStateO4heldyA2CmF",
+            "mangledName": "$s12smartsip_sdk9CallStateO4heldyA2CmF",
+            "moduleName": "smartsip_sdk",
+            "declAttributes": [
+              "RawDocComment"
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "disconnected",
+            "printedName": "disconnected",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(smartsip_sdk.CallState.Type) -> smartsip_sdk.CallState",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "CallState",
+                    "printedName": "smartsip_sdk.CallState",
+                    "usr": "s:12smartsip_sdk9CallStateO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "smartsip_sdk.CallState.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "CallState",
+                        "printedName": "smartsip_sdk.CallState",
+                        "usr": "s:12smartsip_sdk9CallStateO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:12smartsip_sdk9CallStateO12disconnectedyA2CmF",
+            "mangledName": "$s12smartsip_sdk9CallStateO12disconnectedyA2CmF",
+            "moduleName": "smartsip_sdk",
+            "declAttributes": [
+              "RawDocComment"
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "failed",
+            "printedName": "failed",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(smartsip_sdk.CallState.Type) -> smartsip_sdk.CallState",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "CallState",
+                    "printedName": "smartsip_sdk.CallState",
+                    "usr": "s:12smartsip_sdk9CallStateO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "smartsip_sdk.CallState.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "CallState",
+                        "printedName": "smartsip_sdk.CallState",
+                        "usr": "s:12smartsip_sdk9CallStateO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:12smartsip_sdk9CallStateO6failedyA2CmF",
+            "mangledName": "$s12smartsip_sdk9CallStateO6failedyA2CmF",
+            "moduleName": "smartsip_sdk",
+            "declAttributes": [
+              "RawDocComment"
+            ]
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(rawValue:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "smartsip_sdk.CallState?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "CallState",
+                    "printedName": "smartsip_sdk.CallState",
+                    "usr": "s:12smartsip_sdk9CallStateO"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:12smartsip_sdk9CallStateO8rawValueACSgSS_tcfc",
+            "mangledName": "$s12smartsip_sdk9CallStateO8rawValueACSgSS_tcfc",
+            "moduleName": "smartsip_sdk",
+            "implicit": true,
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Var",
+            "name": "rawValue",
+            "printedName": "rawValue",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:12smartsip_sdk9CallStateO8rawValueSSvp",
+            "mangledName": "$s12smartsip_sdk9CallStateO8rawValueSSvp",
+            "moduleName": "smartsip_sdk",
+            "implicit": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:12smartsip_sdk9CallStateO8rawValueSSvg",
+                "mangledName": "$s12smartsip_sdk9CallStateO8rawValueSSvg",
+                "moduleName": "smartsip_sdk",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          }
+        ],
+        "declKind": "Enum",
+        "usr": "s:12smartsip_sdk9CallStateO",
+        "mangledName": "$s12smartsip_sdk9CallStateO",
+        "moduleName": "smartsip_sdk",
+        "declAttributes": [
+          "AccessControl",
+          "RawDocComment"
+        ],
+        "enumRawTypeName": "String",
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "RawRepresentable",
+            "printedName": "RawRepresentable",
+            "children": [
+              {
+                "kind": "TypeWitness",
+                "name": "RawValue",
+                "printedName": "RawValue",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ]
+              }
+            ],
+            "usr": "s:SY",
+            "mangledName": "$sSY"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "smartsip_sdk",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "os",
+        "printedName": "os",
+        "declKind": "Import",
+        "moduleName": "smartsip_sdk"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "SmartSipSDK",
+        "printedName": "SmartSipSDK",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "sdkVersion",
+            "printedName": "sdkVersion",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:12smartsip_sdk11SmartSipSDKC0B7VersionSSvpZ",
+            "mangledName": "$s12smartsip_sdk11SmartSipSDKC0B7VersionSSvpZ",
+            "moduleName": "smartsip_sdk",
+            "static": true,
+            "declAttributes": [
+              "HasInitialValue",
+              "Final",
+              "HasStorage",
+              "AccessControl"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:12smartsip_sdk11SmartSipSDKC0B7VersionSSvgZ",
+                "mangledName": "$s12smartsip_sdk11SmartSipSDKC0B7VersionSSvgZ",
+                "moduleName": "smartsip_sdk",
+                "static": true,
+                "implicit": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "shared",
+            "printedName": "shared",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "SmartSipSDK",
+                "printedName": "smartsip_sdk.SmartSipSDK",
+                "usr": "s:12smartsip_sdk11SmartSipSDKC"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:12smartsip_sdk11SmartSipSDKC6sharedACvpZ",
+            "mangledName": "$s12smartsip_sdk11SmartSipSDKC6sharedACvpZ",
+            "moduleName": "smartsip_sdk",
+            "static": true,
+            "declAttributes": [
+              "HasInitialValue",
+              "Final",
+              "HasStorage",
+              "AccessControl"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "SmartSipSDK",
+                    "printedName": "smartsip_sdk.SmartSipSDK",
+                    "usr": "s:12smartsip_sdk11SmartSipSDKC"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:12smartsip_sdk11SmartSipSDKC6sharedACvgZ",
+                "mangledName": "$s12smartsip_sdk11SmartSipSDKC6sharedACvgZ",
+                "moduleName": "smartsip_sdk",
+                "static": true,
+                "implicit": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Function",
+            "name": "setDelegate",
+            "printedName": "setDelegate(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "CallDelegate",
+                "printedName": "any smartsip_sdk.CallDelegate",
+                "usr": "s:12smartsip_sdk12CallDelegateP"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:12smartsip_sdk11SmartSipSDKC11setDelegateyyAA04CallG0_pF",
+            "mangledName": "$s12smartsip_sdk11SmartSipSDKC11setDelegateyyAA04CallG0_pF",
+            "moduleName": "smartsip_sdk",
+            "declAttributes": [
+              "Final",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "initialize",
+            "printedName": "initialize(token:flowId:domain:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "ImplicitlyUnwrappedOptional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "ImplicitlyUnwrappedOptional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "ImplicitlyUnwrappedOptional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:12smartsip_sdk11SmartSipSDKC10initialize5token6flowId6domainySSSg_A2HtF",
+            "mangledName": "$s12smartsip_sdk11SmartSipSDKC10initialize5token6flowId6domainySSSg_A2HtF",
+            "moduleName": "smartsip_sdk",
+            "declAttributes": [
+              "Final",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "getCallDestinations",
+            "printedName": "getCallDestinations()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Array",
+                "printedName": "[Swift.String]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sa"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:12smartsip_sdk11SmartSipSDKC19getCallDestinationsSaySSGyYaF",
+            "mangledName": "$s12smartsip_sdk11SmartSipSDKC19getCallDestinationsSaySSGyYaF",
+            "moduleName": "smartsip_sdk",
+            "declAttributes": [
+              "Nonisolated",
+              "Final",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "makeCall",
+            "printedName": "makeCall(clientData:destinationQueue:phoneNumber:userFullName:otherRoutingData:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "[Swift.String : Any]?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Dictionary",
+                    "printedName": "[Swift.String : Any]",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "ProtocolComposition",
+                        "printedName": "Any"
+                      }
+                    ],
+                    "usr": "s:SD"
+                  }
+                ],
+                "hasDefaultArg": true,
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "hasDefaultArg": true,
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "hasDefaultArg": true,
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "hasDefaultArg": true,
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "[Swift.String : Any]?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Dictionary",
+                    "printedName": "[Swift.String : Any]",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "ProtocolComposition",
+                        "printedName": "Any"
+                      }
+                    ],
+                    "usr": "s:SD"
+                  }
+                ],
+                "hasDefaultArg": true,
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:12smartsip_sdk11SmartSipSDKC8makeCall10clientData16destinationQueue11phoneNumber12userFullName012otherRoutingI0ySDySSypGSg_SSSgA2lKtYaF",
+            "mangledName": "$s12smartsip_sdk11SmartSipSDKC8makeCall10clientData16destinationQueue11phoneNumber12userFullName012otherRoutingI0ySDySSypGSg_SSSgA2lKtYaF",
+            "moduleName": "smartsip_sdk",
+            "declAttributes": [
+              "Final",
+              "Nonisolated",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "hangUp",
+            "printedName": "hangUp()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:12smartsip_sdk11SmartSipSDKC6hangUpyyF",
+            "mangledName": "$s12smartsip_sdk11SmartSipSDKC6hangUpyyF",
+            "moduleName": "smartsip_sdk",
+            "declAttributes": [
+              "Final",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "setSIPDebugMode",
+            "printedName": "setSIPDebugMode(enabled:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:12smartsip_sdk11SmartSipSDKC15setSIPDebugMode7enabledySb_tF",
+            "mangledName": "$s12smartsip_sdk11SmartSipSDKC15setSIPDebugMode7enabledySb_tF",
+            "moduleName": "smartsip_sdk",
+            "declAttributes": [
+              "Final",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "s:12smartsip_sdk11SmartSipSDKC",
+        "mangledName": "$s12smartsip_sdk11SmartSipSDKC",
+        "moduleName": "smartsip_sdk",
+        "declAttributes": [
+          "Final",
+          "AccessControl"
+        ],
+        "hasMissingDesignatedInitializers": true,
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          }
+        ]
+      }
+    ],
+    "json_format_version": 8
+  },
+  "ConstValues": [
+    {
+      "filePath": "\/Users\/franziacob\/Documents\/GitHub\/smartsip-sdk\/iOS\/SDK\/smartsip-sdk\/smartsip-sdk\/Internal\/LoggerExtension.swift",
+      "kind": "StringLiteral",
+      "offset": 211,
+      "length": 27,
+      "value": "\"smartconnect.smartsip.sdk\""
+    },
+    {
+      "filePath": "\/Users\/franziacob\/Documents\/GitHub\/smartsip-sdk\/iOS\/SDK\/smartsip-sdk\/smartsip-sdk\/Internal\/LoggerExtension.swift",
+      "kind": "StringLiteral",
+      "offset": 300,
+      "length": 5,
+      "value": "\"SDK\""
+    },
+    {
+      "filePath": "\/Users\/franziacob\/Documents\/GitHub\/smartsip-sdk\/iOS\/SDK\/smartsip-sdk\/smartsip-sdk\/Internal\/LoggerExtension.swift",
+      "kind": "StringLiteral",
+      "offset": 367,
+      "length": 5,
+      "value": "\"SIP\""
+    },
+    {
+      "filePath": "\/Users\/franziacob\/Documents\/GitHub\/smartsip-sdk\/iOS\/SDK\/smartsip-sdk\/smartsip-sdk\/Public\/SmartSipSDK.swift",
+      "kind": "StringLiteral",
+      "offset": 202,
+      "length": 7,
+      "value": "\"0.0.1\""
+    },
+    {
+      "filePath": "\/Users\/franziacob\/Documents\/GitHub\/smartsip-sdk\/iOS\/SDK\/smartsip-sdk\/smartsip-sdk\/Public\/SmartSipSDK.swift",
+      "kind": "BooleanLiteral",
+      "offset": 298,
+      "length": 5,
+      "value": "false"
+    }
+  ]
+}
