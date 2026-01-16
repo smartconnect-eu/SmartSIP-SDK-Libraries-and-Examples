@@ -17,7 +17,7 @@ public enum CallState: String {
 }
 
 public final class SmartSipSDK {
-    public static let sdkVersion = "0.0.35"
+    public static let sdkVersion = "0.0.36"
     public static func setDelegate(_ delegate: CallDelegate) {}
     public typealias CallDestination = String
     public static func initialize(token: String, flowId: String, domain: String) {}
