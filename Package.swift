@@ -14,15 +14,15 @@ let package = Package(
         .target(
             name: "smartsip-sdk",
             dependencies: [
-                "smartsip-sdk-binary",
+                .target(name: "smartsip-sdk-binary"),
                 .product(name: "linphonesw", package: "linphone-sdk-swift-ios")
             ],
             path: "Sources/smartsip-sdk"
         ),
         .binaryTarget(
             name: "smartsip-sdk-binary",
-            url: "https://github.com/smartconnect-eu/SmartSIP-SDK-Libraries-and-Examples/releases/download/0.0.6/smartsip-sdk-0.0.6.xcframework.zip",
-            checksum: "27c88eef2491747d42ec94befb415b1fd558e711478da85af05c410d600ac864"
+            url: "https://github.com/smartconnect-eu/SmartSIP-SDK-Libraries-and-Examples/releases/download/0.0.21/smartsip-sdk-0.0.21.xcframework.zip",
+            checksum: "24acccdc2dabebf56019f7e2f76da6bf86c7c989923c951089b03dd6aa949d97"
         )
     ]
 )
