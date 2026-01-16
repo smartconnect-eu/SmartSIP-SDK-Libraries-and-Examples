@@ -21,8 +21,8 @@ let package = Package(
         ),
         .binaryTarget(
             name: "SmartSipImplementation",
-            url: "https://github.com/smartconnect-eu/SmartSIP-SDK-Libraries-and-Examples/releases/download/0.0.32/SmartSipImplementation-0.0.32.xcframework.zip",
-            checksum: "263138cdd3174e2ea01eb021a9b6a3d8505e2375f2abc384b2171a182b46085b"
+            url: "https://github.com/smartconnect-eu/SmartSIP-SDK-Libraries-and-Examples/releases/download/0.0.33/SmartSipImplementation-0.0.33.xcframework.zip",
+            checksum: "6e2c6fe93958f8b66a4a2cc36169ea3c0e3cd5b3eb90528047de462d28a6c753"
         )
     ]
 )
