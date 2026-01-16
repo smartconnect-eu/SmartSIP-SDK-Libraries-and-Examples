@@ -5,24 +5,24 @@ let package = Package(
     name: "SmartSIP-SDK-Libraries-and-Examples",
     platforms: [.iOS(.v15)],
     products: [
-        .library(name: "smartsip_sdk", targets: ["smartsip_sdk"])
+        .library(name: "SmartSipSDK", targets: ["SmartSipSDK"])
     ],
     dependencies: [
         .package(url: "https://gitlab.linphone.org/BC/public/linphone-sdk-swift-ios.git", exact: "5.4.73")
     ],
     targets: [
         .target(
-            name: "smartsip_sdk",
+            name: "SmartSipSDK",
             dependencies: [
-                .target(name: "smartsip_sdk_binary_dist"),
+                .target(name: "SmartSipImplementation"),
                 .product(name: "linphonesw", package: "linphone-sdk-swift-ios")
             ],
-            path: "Sources/smartsip_sdk"
+            path: "Sources/SmartSipSDK"
         ),
         .binaryTarget(
-            name: "smartsip_sdk_binary_dist",
-            url: "https://github.com/smartconnect-eu/SmartSIP-SDK-Libraries-and-Examples/releases/download/0.0.28/smartsip-sdk-0.0.28.xcframework.zip",
-            checksum: "2a5dc4671e0d7895f65f61e1399a05f058d2577f8da0e8f079244b33653fead1"
+            name: "SmartSipImplementation",
+            url: "https://github.com/smartconnect-eu/SmartSIP-SDK-Libraries-and-Examples/releases/download/0.0.30/SmartSipImplementation-0.0.30.xcframework.zip",
+            checksum: "263138cdd3174e2ea01eb021a9b6a3d8505e2375f2abc384b2171a182b46085b"
         )
     ]
 )
