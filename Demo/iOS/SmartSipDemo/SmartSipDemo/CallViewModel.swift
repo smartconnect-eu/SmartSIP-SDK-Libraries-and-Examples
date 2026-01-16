@@ -8,6 +8,10 @@ import SwiftUI
 import smartsip_sdk
 import Combine
 
+enum CallFlow {
+    case callKit, customUI
+}
+
 @MainActor
 class CallViewModel: ObservableObject {
     
@@ -21,6 +25,8 @@ class CallViewModel: ObservableObject {
     @Published var clientDataString: String = ""
     @Published var jsonErrorMessage: String? = nil
     
+    @Published var activeFlow: CallFlow = .callKit
+    @Published var showCustomUI: Bool = false
 
     init() {
         // 1. Setup SDK basic config
@@ -55,7 +61,14 @@ class CallViewModel: ObservableObject {
         
         callStatus = "Creating Session..."
         let clientData = parseClientData()
+        
+        if activeFlow == .customUI {
+                    self.showCustomUI = true
+                }
+        
         Task {
+            // Give the UI a frame to appear before hitting the CPU with SDK init
+            try? await Task.sleep(nanoseconds: 100_000_000) // 0.1 seconds
             // Passing the selected destination to the SDK
             await SmartSipSDK.makeCall(
                 clientData: clientData,
@@ -66,9 +79,17 @@ class CallViewModel: ObservableObject {
     }
 
     func endTestCall() {
+        // 1. Tell SDK to hang up
         SmartSipSDK.hangUp()
+        
+        // 2. Local cleanup
         isCallActive = false
-        callStatus = "Hanging up..."
+        callStatus = "Disconnected"
+        
+        // 3. Dismiss the blue dialer immediately
+        if showCustomUI {
+            self.showCustomUI = false
+        }
     }
     
     private func parseClientData() -> [String: Any]? {
@@ -91,15 +112,27 @@ class CallViewModel: ObservableObject {
 
 extension CallViewModel: CallDelegate {
     func callDidChangeState(_ state: CallState) {
-        self.callStatus = "State: \(state)"
-        
-        // Note: adjust state checks based on your SDK's specific enum names
-        if state == .connected {
-            isCallActive = true
-        } else if state == .disconnected || state == .loggedOut {
-            isCallActive = false
+            Task { @MainActor in
+                self.callStatus = "State: \(state.rawValue)"
+                
+                switch state {
+                case .connected:
+                    self.isCallActive = true
+                    
+                case .failed, .disconnected, .loggedOut:
+                    // Terminal states: Reset status and hide the dialer
+                    self.isCallActive = false
+                    
+                    // We add a tiny delay so the user can actually see "Failed"
+                    // for a split second before the screen slides away
+                    try? await Task.sleep(nanoseconds: 800_000_000) // 0.8 seconds
+                    self.showCustomUI = false
+                    
+                default:
+                    break
+                }
+            }
         }
-    }
 
     func callDidFail(withError error: String) {
         self.callStatus = "Error: \(error)"
