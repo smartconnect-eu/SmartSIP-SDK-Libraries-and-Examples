@@ -29,6 +29,7 @@ This repository follows the industry standard for binary Swift Package distribut
 Add the following keys to your app's `Info.plist`:
 * `NSMicrophoneUsageDescription`: Required for audio calls.
 * `UIBackgroundModes`: Add `voip` and `audio`.
+* `NSCameraUsageDescription`: It will not be used by this framework, but it's depenendcies do use it and will appear in the Apple scans. SO please add it if not there.
 
 ### 2. Initialization
 ```swift
