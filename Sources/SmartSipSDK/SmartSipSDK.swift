@@ -34,7 +34,7 @@ public enum DTMFButton: String {
 public final class SmartSipSDK {
     
     /// The current semantic version of the SmartSip SDK.
-    public static let sdkVersion = "0.0.38"
+    public static let sdkVersion = "0.0.39"
     
     /// Assigns a delegate to receive real-time call state updates.
     /// - Parameter delegate: An object conforming to `CallDelegate`.
