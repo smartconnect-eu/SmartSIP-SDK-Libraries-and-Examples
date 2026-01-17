@@ -21,16 +21,22 @@ public enum CallState: String {
     case loginInProgress, loggedIn, loggedOut, dialing, ringing, connected, held, disconnected, failed
 }
 
+/// Represents the standard 12-key DTMF tones used in telephony.
+public enum DTMFButton: String {
+    case zero = "0", one = "1", two = "2", three = "3", four = "4"
+    case five = "5", six = "6", seven = "7", eight = "8", nine = "9"
+    case star = "*", pound = "#"
+}
+
 /// The main entry point for the SmartSip VoIP SDK.
 ///
-/// This class provides high-level methods to initialize the service, manage call sessions,
-/// and control hardware routing such as speakerphone and microphone states.
+/// Use this class to initialize the SDK, manage call lifecycles, and control audio hardware.
 public final class SmartSipSDK {
     
     /// The current semantic version of the SmartSip SDK.
-    public static let sdkVersion = "0.0.37"
+    public static let sdkVersion = "0.0.38"
     
-    /// Assigns a delegate to receive real-time call state updates and error notifications.
+    /// Assigns a delegate to receive real-time call state updates.
     /// - Parameter delegate: An object conforming to `CallDelegate`.
     public static func setDelegate(_ delegate: CallDelegate) {}
     
@@ -40,19 +46,17 @@ public final class SmartSipSDK {
     /**
      Initializes the SDK with the required middleware credentials.
      
-     Call this method once at app launch before attempting to fetch destinations or initiate calls.
-     
      - Parameters:
-        - token: The security token for authentication with the SmartConnect middleware.
-        - flowId: The UUID or identifier for the specific business call flow.
-        - domain: The server domain address (e.g., "webrtc.smartcall.cc").
+        - token: Security token for authentication.
+        - flowId: Identifier for the specific call flow.
+        - domain: Server domain address.
      */
     public static func initialize(token: String, flowId: String, domain: String) {}
     
     /**
      Retrieves a list of authorized call targets from the middleware.
      
-     - Returns: A collection of `CallDestination` strings representing available queues or agents.
+     - Returns: A collection of `CallDestination` strings.
      */
     @discardableResult
     public static func getCallDestinations() async -> [CallDestination] { return [] }
@@ -60,14 +64,12 @@ public final class SmartSipSDK {
     /**
      Initiates an outgoing VoIP call session.
      
-     This method first establishes a session with the SmartConnect middleware before triggering the SIP stack.
-     
      - Parameters:
-        - clientData: A dictionary of custom metadata to be attached to the session (e.g., CRM IDs).
-        - destinationQueue: The target queue or peer for the call.
-        - callerPhoneNumber: The E.164 formatted number to be displayed to the recipient.
+        - clientData: Optional metadata to attach to the session.
+        - destinationQueue: The target queue or peer.
+        - callerPhoneNumber: The phone number to display (E.164).
         - callerFullName: The display name for the caller.
-        - otherRoutingData: Additional key-value pairs used for custom routing logic.
+        - otherRoutingData: Custom key-value pairs for routing.
      */
     public static func makeCall(
         clientData: [String: Any]? = nil,
@@ -78,31 +80,35 @@ public final class SmartSipSDK {
     ) async {}
     
     /**
-     Terminates the active call session and unregisters the client from the SIP server.
-     
-     Call this to hang up or cancel an invitation in progress.
+     Terminates the active call session and unregisters the client.
      */
     public static func hangUp() {}
+
+    /**
+     Sends a DTMF (Dual-Tone Multi-Frequency) tone during an active call.
+     
+     - Parameter button: The DTMF digit to send (0-9, *, #).
+     */
+    public static func sendDTMF(_ button: DTMFButton) {}
     
     /**
      Toggles the microphone mute state during an active call.
      
-     - Parameter muted: If `true`, the microphone is silenced and no audio is transmitted to the peer.
+     - Parameter muted: If `true`, the microphone is silenced.
      */
     public static func setMicrophoneMuted(_ muted: Bool) {}
     
     /**
-     Toggles the audio output between the internal earpiece and the loud speaker.
+     Toggles the audio output between the earpiece and the loud speaker.
      
-     - Parameter isSpeakerOn: If `true`, audio is routed to the device's loud speaker.
+     - Parameter isSpeakerOn: If `true`, audio is routed to the loud speaker.
      */
     public static func setSpeakerOn(_ isSpeakerOn: Bool) {}
     
     /**
      Configures the verbosity of the underlying SIP stack logs.
      
-     - Note: Enable this during development to troubleshoot signaling or network issues.
-     - Parameter enabled: Set to `true` to output detailed low-level logs to the console.
+     - Parameter enabled: If `true`, detailed logs are output to the console.
      */
     public static func setSIPDebugMode(enabled: Bool) {}
 }
