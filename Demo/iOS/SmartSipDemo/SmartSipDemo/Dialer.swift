@@ -28,7 +28,10 @@ struct BlueInCallView: View {
                     HStack(spacing: 35) {
                         ForEach(row, id: \.self) { digit in
                             DialerDigitCircle(digit: digit) { pressedDigit in
-                                // Call the SDK to send the tone
+                                // 1. Audio Feedback (App Layer - Separate)
+                                DTMFPlayer.shared.playTone(for: pressedDigit)
+                                
+                                // 2. Network Signaling (SDK Layer)
                                 if let tone = DTMFButton(rawValue: pressedDigit) {
                                     SmartSipSDK.sendDTMF(tone)
                                 }
@@ -112,20 +115,40 @@ struct ControlToggle: View {
 
 struct DialerDigitCircle: View {
     let digit: String
-    let action: (String) -> Void // Add action closure
+    let action: (String) -> Void
+    
+    @State private var isPressed = false
     
     var body: some View {
-        Button(action: { action(digit) }) {
+        Button(action: {
+            // 1. Haptic Feedback (Mechanical click feel)
+            let generator = UIImpactFeedbackGenerator(style: .light)
+            generator.impactOccurred()
+            
+            // 2. Trigger Visual Animation
+            withAnimation(.easeInOut(duration: 0.1)) {
+                isPressed = true
+            }
+            
+            // 3. Perform SDK Action
+            action(digit)
+            
+            // Reset visual state
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                withAnimation { isPressed = false }
+            }
+        }) {
             ZStack {
                 Circle()
-                    .fill(Color.blue.opacity(0.1))
+                    .fill(isPressed ? Color.blue.opacity(0.3) : Color.blue.opacity(0.1))
                     .frame(width: 80, height: 80)
+                    .scaleEffect(isPressed ? 0.9 : 1.0) // Subtle "press in" effect
                 
                 Text(digit)
                     .font(.system(size: 38, weight: .light))
                     .foregroundColor(.blue)
             }
         }
-        .buttonStyle(PlainButtonStyle()) // Prevents highlighting the whole row
+        .buttonStyle(PlainButtonStyle())
     }
 }
