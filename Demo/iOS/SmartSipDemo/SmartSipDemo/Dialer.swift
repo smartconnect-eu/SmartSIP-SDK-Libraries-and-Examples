@@ -27,7 +27,12 @@ struct BlueInCallView: View {
                 ForEach(grid, id: \.self) { row in
                     HStack(spacing: 35) {
                         ForEach(row, id: \.self) { digit in
-                            DialerDigitCircle(digit: digit)
+                            DialerDigitCircle(digit: digit) { pressedDigit in
+                                // Call the SDK to send the tone
+                                if let tone = DTMFButton(rawValue: pressedDigit) {
+                                    SmartSipSDK.sendDTMF(tone)
+                                }
+                            }
                         }
                     }
                 }
@@ -107,14 +112,20 @@ struct ControlToggle: View {
 
 struct DialerDigitCircle: View {
     let digit: String
+    let action: (String) -> Void // Add action closure
+    
     var body: some View {
-        ZStack {
-            Circle()
-                .fill(Color.blue.opacity(0.1))
-                .frame(width: 80, height: 80)
-            Text(digit)
-                .font(.system(size: 38, weight: .light))
-                .foregroundColor(.blue)
+        Button(action: { action(digit) }) {
+            ZStack {
+                Circle()
+                    .fill(Color.blue.opacity(0.1))
+                    .frame(width: 80, height: 80)
+                
+                Text(digit)
+                    .font(.system(size: 38, weight: .light))
+                    .foregroundColor(.blue)
+            }
         }
+        .buttonStyle(PlainButtonStyle()) // Prevents highlighting the whole row
     }
 }
