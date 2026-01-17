@@ -13,7 +13,6 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             VStack(spacing: 0) {
-                // 1. Flow Switcher at the top
                 Picker("Call Flow", selection: $viewModel.activeFlow) {
                     Text("Native (CallKit)").tag(CallFlow.callKit)
                     Text("Custom (Blue)").tag(CallFlow.customUI)
@@ -24,7 +23,6 @@ struct ContentView: View {
                 
                 Divider()
 
-                // 2. Main Configuration Form
                 Form {
                     Section(header: Text("User Identity")) {
                         TextField("Full Name", text: $viewModel.userFullName)
@@ -78,8 +76,6 @@ struct ContentView: View {
             }
             .navigationTitle("SmartSip SDK")
             .navigationBarTitleDisplayMode(.inline)
-            
-            // 3. The Custom Blue Dialer Overlay
             .fullScreenCover(isPresented: $viewModel.showCustomUI) {
                 BlueInCallView(viewModel: viewModel)
             }

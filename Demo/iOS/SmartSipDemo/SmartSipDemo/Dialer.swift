@@ -1,18 +1,13 @@
-//
-//  Dialer.swift
-//  SmartSipDemo
-//
-//  Created by Franz Iacob on 16/01/2026.
-//
-
 import SwiftUI
+import smartsip_sdk
+
 struct BlueInCallView: View {
-    @Environment(\.dismiss) var dismiss // Alternative way to dismiss
+    @Environment(\.dismiss) var dismiss
     @ObservedObject var viewModel: CallViewModel
     let grid = [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"], ["*", "0", "#"]]
 
     var body: some View {
-        VStack(spacing: 40) {
+        VStack(spacing: 30) {
             // Header
             VStack(spacing: 12) {
                 Text(viewModel.selectedDestination)
@@ -28,7 +23,7 @@ struct BlueInCallView: View {
             Spacer()
 
             // Keypad Grid
-            VStack(spacing: 25) {
+            VStack(spacing: 20) {
                 ForEach(grid, id: \.self) { row in
                     HStack(spacing: 35) {
                         ForEach(row, id: \.self) { digit in
@@ -40,13 +35,31 @@ struct BlueInCallView: View {
 
             Spacer()
 
-            // Action Button
+            // In-Call Controls (Mute & Speaker)
+            HStack(spacing: 50) {
+                ControlToggle(
+                    isActive: viewModel.isMuted,
+                    onIcon: "mic.slash.fill",
+                    offIcon: "mic.fill",
+                    label: "Mute",
+                    action: { viewModel.toggleMute() }
+                )
+
+                ControlToggle(
+                    isActive: viewModel.isSpeakerOn,
+                    onIcon: "speaker.wave.3.fill",
+                    offIcon: "speaker.fill",
+                    label: "Speaker",
+                    action: { viewModel.toggleSpeaker() }
+                )
+            }
+            .padding(.bottom, 10)
+
+            // Action Button (Hang Up)
             Button(action: {
                 if viewModel.isCallActive {
-                    viewModel.endTestCall() // This will now dismiss the view
+                    viewModel.endTestCall()
                 } else {
-                    // This handles the case if the user presses the green button
-                    // from within the dialer (if you decide to keep it there)
                     viewModel.startTestCall()
                 }
             }) {
@@ -66,16 +79,39 @@ struct BlueInCallView: View {
     }
 }
 
-// Subview for the individual digits
+struct ControlToggle: View {
+    let isActive: Bool
+    let onIcon: String
+    let offIcon: String
+    let label: String
+    let action: () -> Void
+
+    var body: some View {
+        Button(action: action) {
+            VStack(spacing: 8) {
+                ZStack {
+                    Circle()
+                        .fill(isActive ? Color.blue : Color.blue.opacity(0.1))
+                        .frame(width: 65, height: 65)
+                    Image(systemName: isActive ? onIcon : offIcon)
+                        .font(.title3)
+                        .foregroundColor(isActive ? .white : .blue)
+                }
+                Text(label)
+                    .font(.caption2.bold())
+                    .foregroundColor(.blue)
+            }
+        }
+    }
+}
+
 struct DialerDigitCircle: View {
     let digit: String
-    
     var body: some View {
         ZStack {
             Circle()
                 .fill(Color.blue.opacity(0.1))
                 .frame(width: 80, height: 80)
-            
             Text(digit)
                 .font(.system(size: 38, weight: .light))
                 .foregroundColor(.blue)

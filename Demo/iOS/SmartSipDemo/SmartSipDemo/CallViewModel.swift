@@ -3,10 +3,10 @@
 //  SmartSipDemo
 //
 //  Created by Franz Iacob on 09/01/2026.
-//
-import SwiftUI
+//import SwiftUI
 import smartsip_sdk
 import Combine
+import UIKit
 
 enum CallFlow {
     case callKit, customUI
@@ -14,7 +14,6 @@ enum CallFlow {
 
 @MainActor
 class CallViewModel: ObservableObject {
-    
     @Published var callStatus: String = "Idle"
     @Published var isCallActive: Bool = false
     @Published var destinations: [String] = []
@@ -27,9 +26,12 @@ class CallViewModel: ObservableObject {
     
     @Published var activeFlow: CallFlow = .callKit
     @Published var showCustomUI: Bool = false
+    
+    // Hardware States
+    @Published var isMuted: Bool = false
+    @Published var isSpeakerOn: Bool = false
 
     init() {
-        // 1. Setup SDK basic config
         SmartSipSDK.initialize(
             token: "SS_SA_ZBuDfr7dDD4gF8cJ",
             flowId: "DF00683B-181D-5665-9AE0-41133D6F9D74",
@@ -37,8 +39,6 @@ class CallViewModel: ObservableObject {
         )
         SmartSipSDK.setSIPDebugMode(enabled: false)
         SmartSipSDK.setDelegate(self)
-        
-        // 2. Fetch available targets
         fetchDestinations()
     }
 
@@ -46,11 +46,21 @@ class CallViewModel: ObservableObject {
         Task {
             let targets = await SmartSipSDK.getCallDestinations()
             self.destinations = targets
-            // Default to first destination if available
             if let first = targets.first {
                 self.selectedDestination = first
             }
         }
+    }
+
+    // Hardware Controls calling SDK
+    func toggleMute() {
+        isMuted.toggle()
+        SmartSipSDK.setMicrophoneMuted(isMuted)
+    }
+
+    func toggleSpeaker() {
+        isSpeakerOn.toggle()
+        SmartSipSDK.setSpeakerOn(isSpeakerOn)
     }
 
     func startTestCall() {
@@ -58,18 +68,21 @@ class CallViewModel: ObservableObject {
             callStatus = "Error: No destination selected"
             return
         }
+        //Enable Proximity Sensor for Custom UI
+        if activeFlow == .customUI {
+            UIDevice.current.isProximityMonitoringEnabled = true
+            self.showCustomUI = true
+        }
         
         callStatus = "Creating Session..."
         let clientData = parseClientData()
         
         if activeFlow == .customUI {
-                    self.showCustomUI = true
-                }
+            self.showCustomUI = true
+        }
         
         Task {
-            // Give the UI a frame to appear before hitting the CPU with SDK init
-            try? await Task.sleep(nanoseconds: 100_000_000) // 0.1 seconds
-            // Passing the selected destination to the SDK
+            try? await Task.sleep(nanoseconds: 100_000_000)
             await SmartSipSDK.makeCall(
                 clientData: clientData,
                 destinationQueue: selectedDestination,
@@ -79,14 +92,16 @@ class CallViewModel: ObservableObject {
     }
 
     func endTestCall() {
-        // 1. Tell SDK to hang up
         SmartSipSDK.hangUp()
-        
-        // 2. Local cleanup
+        resetCallUI()
+    }
+    
+    private func resetCallUI() {
+        UIDevice.current.isProximityMonitoringEnabled = false
         isCallActive = false
+        isMuted = false
+        isSpeakerOn = false
         callStatus = "Disconnected"
-        
-        // 3. Dismiss the blue dialer immediately
         if showCustomUI {
             self.showCustomUI = false
         }
@@ -95,47 +110,46 @@ class CallViewModel: ObservableObject {
     private func parseClientData() -> [String: Any]? {
         jsonErrorMessage = nil
         guard !clientDataString.trimmingCharacters(in: .whitespaces).isEmpty else { return nil }
-        
         guard let data = clientDataString.data(using: .utf8) else { return nil }
-        
         do {
-            if let json = try JSONSerialization.jsonObject(with: data) as? [String: Any] {
-                jsonErrorMessage = nil
-                return json
-            }
+            let json = try JSONSerialization.jsonObject(with: data) as? [String: Any]
+            return json
         } catch {
             jsonErrorMessage = "Invalid JSON format"
+            return nil
         }
-        return nil
     }
 }
 
 extension CallViewModel: CallDelegate {
     func callDidChangeState(_ state: CallState) {
-            Task { @MainActor in
-                self.callStatus = "State: \(state.rawValue)"
-                
-                switch state {
-                case .connected:
-                    self.isCallActive = true
-                    
-                case .failed, .disconnected, .loggedOut:
-                    // Terminal states: Reset status and hide the dialer
-                    self.isCallActive = false
-                    
-                    // We add a tiny delay so the user can actually see "Failed"
-                    // for a split second before the screen slides away
-                    try? await Task.sleep(nanoseconds: 800_000_000) // 0.8 seconds
-                    self.showCustomUI = false
-                    
-                default:
-                    break
-                }
+        Task { @MainActor in
+            self.callStatus = "State: \(state.rawValue)"
+            
+            switch state {
+            case .connected:
+                self.isCallActive = true
+            case .failed, .disconnected, .loggedOut:
+                self.isCallActive = false
+                try? await Task.sleep(nanoseconds: 800_000_000)
+                // Disable sensor immediately
+                UIDevice.current.isProximityMonitoringEnabled = false
+                self.showCustomUI = false
+                // Reset hardware toggles for next call
+                self.isMuted = false
+                self.isSpeakerOn = false
+            default:
+                break
             }
         }
+    }
 
     func callDidFail(withError error: String) {
-        self.callStatus = "Error: \(error)"
-        self.isCallActive = false
+        Task { @MainActor in
+            self.callStatus = "Error: \(error)"
+            self.isCallActive = false
+            try? await Task.sleep(nanoseconds: 1_500_000_000)
+            self.showCustomUI = false
+        }
     }
 }
