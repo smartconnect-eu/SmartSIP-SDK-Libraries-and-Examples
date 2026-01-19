@@ -38,18 +38,15 @@ class CallViewModel: ObservableObject, CallDelegate {
                 
                 // 3. Tell CallKit the session is over so the native UI disappears
                 if activeFlow == .callKit {
-                    CallKitManager.shared.reportEndFromServer()
+                    CallKitManager.shared.reportFailed()
                 }
                 
                 // Cleanup UI and Hardware
                 try? await Task.sleep(nanoseconds: 800_000_000)
                 
                 UIDevice.current.isProximityMonitoringEnabled = false
-                self.showCustomUI = false
-                
-                // Reset hardware toggles for next call
-                self.isMuted = false
-                self.isSpeakerOn = false
+                // Standard cleanup
+                self.resetCallUI()
                 
             default:
                 break
@@ -59,10 +56,16 @@ class CallViewModel: ObservableObject, CallDelegate {
     
     func callDidFail(withError error: String) {
         Task { @MainActor in
-               self.callStatus = "Error: \(error)"
-               self.isCallActive = false
-               try? await Task.sleep(nanoseconds: 1_500_000_000)
-               self.showCustomUI = false
+            self.callStatus = "Error: \(error)"
+            self.isCallActive = false
+         
+            if activeFlow == .callKit {
+                        // Signal the failure to the system UI immediately
+                        CallKitManager.shared.reportFailed()
+                    }
+            
+            try? await Task.sleep(nanoseconds: 1_500_000_000)
+            self.showCustomUI = false
        }
     }
     
@@ -91,6 +94,7 @@ class CallViewModel: ObservableObject, CallDelegate {
             flowId: "DF00683B-181D-5665-9AE0-41133D6F9D74",
             domain: "webrtc.smartcall.cc"
         )
+        
         SmartSipSDK.setSIPDebugMode(enabled: false)
         SmartSipSDK.setDelegate(self)
         // --- Add CallKit Callbacks ---

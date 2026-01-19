@@ -74,6 +74,14 @@ class CallKitManager: NSObject, CXProviderDelegate {
         provider.reportCall(with: uuid, endedAt: nil, reason: .remoteEnded)
         currentCallUUID = nil
     }
+    
+    /// Reports to iOS that the call failed to connect.
+    func reportFailed() {
+        guard let uuid = currentCallUUID else { return }
+        // Reporting .failed makes the system UI turn red/show "Call Failed" before dismissing
+        provider.reportCall(with: uuid, endedAt: nil, reason: .failed)
+        currentCallUUID = nil
+    }
 
     // MARK: - CXProviderDelegate
     func providerDidReset(_ provider: CXProvider) {
