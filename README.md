@@ -29,15 +29,15 @@ You must include the following keys to allow background audio and microphone acc
 
 ### 2. Initialization
 Initialize the SDK once at app launch (e.g., in your `AppDelegate` or `App` init).
-
+<pre>
 ```swift
 import SmartSipSDK
-
 SmartSipSDK.initialize(
     token: "YOUR_TOKEN",
     flowId: "YOUR_FLOW_ID",
     domain: "YOUR_DOMAIN"
 )
+</pre>
 
 // Assign a delegate to listen for call states
 SmartSipSDK.setDelegate(yourDelegate)
@@ -45,8 +45,8 @@ SmartSipSDK.setDelegate(yourDelegate)
 Managing Calls
 Initiate and terminate calls using the high-level API:
 
-Swift
-
+<pre>
+```swift
 // Initiate an outgoing call
 await SmartSipSDK.makeCall(
     destinationQueue: "Support_Queue",
@@ -62,7 +62,7 @@ SmartSipSDK.setSpeakerOn(true)
 
 // Mute the microphone stream
 SmartSipSDK.setMicrophoneMuted(true)
-
+</pre>
 
 
 DTMF Signaling (IVR Interaction)
@@ -85,6 +85,8 @@ For DTMF "beeps" in the UI, we recommend playing sounds in the App layer using A
 
 📋 Delegate Handling
 Implement the CallDelegate to react to state changes:
+<pre>
+```swift
 extension YourViewModel: CallDelegate {
     func callDidChangeState(_ state: CallState) {
         switch state {
@@ -101,7 +103,35 @@ extension YourViewModel: CallDelegate {
         print("Call Error: \(error)")
     }
 }
+</pre>
 
 Debugging & Troubleshooting
 If you encounter signaling or network issues, enable detailed low-level logs:
+<pre>
+```swift
 SmartSipSDK.setSIPDebugMode(enabled: true)
+</pre>
+
+## 🎹 DTMF Support (Signaling & IVR)
+
+The SmartSip SDK provides dual-mode support for DTMF (Dual-Tone Multi-Frequency) to ensure compatibility with all automated IVR systems.
+
+### 1. CallKit (System-Native Interface)
+When using the native iOS CallKit UI, DTMF is handled via **In-Band Audio**.
+
+* **Automatic Transmission:** When a user presses the "Keypad" on the native iOS call screen, the system generates the corresponding audio frequencies and injects them directly into the outgoing audio stream.
+* **SDK Role:** Because the SDK is already managing the active `AVAudioSession`, these tones are captured and sent to the SIP server automatically without any extra code.
+* **Privacy Note:** CallKit does **not** provide delegate callbacks to the app for system keypad presses. Therefore, explicit "digital data" DTMF cannot be sent via the native system keypad.
+
+
+
+### 2. Custom Dialer (Digital Signaling)
+For high-reliability digital signaling (SIP INFO or RFC 2833), you should implement a custom keypad within your app.
+
+* **Explicit Data:** Use the SDK method to send digital signals that are independent of the audio stream.
+* **Hybrid Usage:** Even during a CallKit session, you can present a custom keypad in your app to send "data-based" DTMF while the system call remains active.
+
+<pre>
+```swift
+SmartSipSDK.sendDTMF(.one)
+</pre>
