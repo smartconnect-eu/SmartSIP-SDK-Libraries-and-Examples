@@ -1,0 +1,21 @@
+# --- System Files ---
+.DS_Store
+
+# --- Xcode & SwiftPM (Recursive) ---
+**/DerivedData/
+**/build/
+**/.build/
+**/.swiftpm/
+
+# --- User-Specific Xcode Files ---
+**/xcuserdata/
+**/xcshareddata/
+**/xcuserstate
+**/*.xcresult
+**/project.xcworkspace/
+!**/contents.xcworkspacedata
+
+# --- Package Management ---
+# We want to keep the ZIP, but ignore local fetch caches
+**/.swiftpm/xcode/package.resolved
+/iOS/Demo/SmartSipDemo/DerivedData
