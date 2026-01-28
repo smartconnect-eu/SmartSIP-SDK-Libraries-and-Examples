@@ -1,22 +1,18 @@
 import Foundation
-
 public protocol CallDelegate: AnyObject {
     func callDidChangeState(_ state: CallState)
     func callDidFail(withError error: String)
 }
-
 public enum CallState: String {
     case loginInProgress, loggedIn, loggedOut, dialing, ringing, connected, held, disconnected, failed
 }
-
 public enum DTMFButton: String {
     case zero = "0", one = "1", two = "2", three = "3", four = "4"
     case five = "5", six = "6", seven = "7", eight = "8", nine = "9"
     case star = "*", pound = "#"
 }
-
 public final class SmartSipSDK {
-    public static let sdkVersion = "0.0.43"
+    public static let sdkVersion = "0.0.44"
     public static func setDelegate(_ delegate: CallDelegate) {}
     public typealias CallDestination = String
     public static func initialize(token: String, flowId: String, domain: String) {}
