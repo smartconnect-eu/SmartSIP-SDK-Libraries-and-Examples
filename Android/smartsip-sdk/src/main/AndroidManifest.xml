@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="cc.smartconnect.smartsip_sdk">
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_PHONE_CALL" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MICROPHONE" />
+    <uses-permission android:name="android.permission.MANAGE_OWN_CALLS" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <application>
+        <!-- The following is mandatory as having this foreground service prevents Android to kill the app during a call -->
+        <!-- You can create your own service that inherits from this class for simplicity or handle the foreground service yourself ( custom notifications ) -->
+        <service
+            android:name="cc.smartconnect.smartsip_sdk.private.SmartSipCoreService"
+            android:exported="true"
+            android:foregroundServiceType="microphone|phoneCall"
+            android:stopWithTask="false"
+            tools:ignore="ForegroundServicePermission">
+            <property
+                android:name="android.foreground_service.type.microphone"
+                android:value="microphone" />
+        </service>
+        <service
+            android:name="cc.smartconnect.smartsip_sdk.private.SmartSipConnectionService"
+            android:permission="android.permission.BIND_TELECOM_CONNECTION_SERVICE"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.telecom.ConnectionService" />
+            </intent-filter>
+        </service>
+        <receiver android:name=".private.PhoneStateReceiver" android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.PHONE_STATE" />
+            </intent-filter>
+        </receiver>
+    </application>
+</manifest>
