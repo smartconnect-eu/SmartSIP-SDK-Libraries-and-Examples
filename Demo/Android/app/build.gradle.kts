@@ -43,7 +43,7 @@ android {
 
 dependencies {
 
-    implementation("com.github.smartconnect-eu:SmartSIP-SDK-Libraries-and-Examples:0.0.47")
+    implementation("com.github.smartconnect-eu:SmartSIP-SDK-Libraries-and-Examples:0.0.48")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
