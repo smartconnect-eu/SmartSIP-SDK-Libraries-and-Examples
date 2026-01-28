@@ -37,3 +37,4 @@ local.properties
 *.log
 .gradle/
 **/build/
+*.lock
