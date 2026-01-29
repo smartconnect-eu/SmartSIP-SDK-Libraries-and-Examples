@@ -7,6 +7,6 @@ let package = Package(
     dependencies: [.package(url: "https://gitlab.linphone.org/BC/public/linphone-sdk-swift-ios.git", exact: "5.4.73")],
     targets: [
         .target(name: "SmartSipSDK", dependencies: [.target(name: "SmartSipImplementation"), .product(name: "linphonesw", package: "linphone-sdk-swift-ios")], path: "Sources/SmartSipSDK"),
-        .binaryTarget(name: "SmartSipImplementation", url: "https://github.com/smartconnect-eu/SmartSIP-SDK-Libraries-and-Examples/releases/download/0.0.71/SmartSipImplementation-0.0.71.xcframework.zip", checksum: "e89c8fcabe1e50b9c140692461e04b65d0d62ea7511697a62b2b91ef8f6074dc")
+        .binaryTarget(name: "SmartSipImplementation", url: "https://github.com/smartconnect-eu/SmartSIP-SDK-Libraries-and-Examples/releases/download/0.0.73/SmartSipImplementation-0.0.73.xcframework.zip", checksum: "69614771c476d34a47ca0472b513b0f46d57f164abe443005f6d5951ac72c7b9")
     ]
 )
