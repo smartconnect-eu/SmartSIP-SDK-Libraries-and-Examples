@@ -1,0 +1,50 @@
+# --- System Files ---
+.DS_Store
+Thumbs.db
+
+# --- JetBrains / Android Studio (.idea) ---
+**/.idea/
+**/*.iml
+**/cmake-build-*/
+**/.navigation/
+/captures/
+**/.externalNativeBuild/
+.cxx/
+.gradle/
+local.properties
+
+# --- Xcode & SwiftPM (Recursive) ---
+**/DerivedData/
+**/build/
+**/.build/
+**/.swiftpm/
+
+# --- User-Specific Xcode Files ---
+**/xcuserdata/
+**/xcshareddata/
+**/xcuserstate
+**/*.xcresult
+**/project.xcworkspace/
+!**/contents.xcworkspacedata
+
+# --- Package Management ---
+**/.swiftpm/xcode/package.resolved
+/iOS/Demo/SmartSipDemo/DerivedData
+
+# --- Temporary Files ---
+*.tmp
+*.temp
+*.swp
+*.log
+.gradle/
+**/build/
+**/build/
+*.lock
+/Demo/Android/.gradle
+Demo/Android/.gradle/buildOutputCleanup/buildOutputCleanup.lock
+Demo/Android/.gradle/8.13/fileHashes/fileHashes.lock
+Demo/Android/.gradle/8.13/executionHistory/executionHistory.lock
+Demo/Android/.gradle/8.13/executionHistory/executionHistory.bin
+Demo/Android/.gradle/8.13/checksums/sha1-checksums.bin
+Demo/Android/.gradle/8.13/checksums/md5-checksums.bin
+Demo/Android/.gradle/8.13/checksums/checksums.lock
