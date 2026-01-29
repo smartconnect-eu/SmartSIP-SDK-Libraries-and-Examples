@@ -1,0 +1,5 @@
+// Directs Gradle to the Android sub-folder
+include ':Android:smartsip-sdk'
+include ':Android:app'
+
+rootProject.name = "SmartSIP-SDK-Public"
