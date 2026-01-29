@@ -43,7 +43,7 @@ android {
 
 dependencies {
 
-    implementation("cc.smartconnect:smartsip-sdk:0.0.54")
+    implementation("cc.smartconnect:smartsip-sdk:0.0.61")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)

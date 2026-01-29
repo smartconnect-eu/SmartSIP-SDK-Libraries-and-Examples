@@ -41,3 +41,10 @@ local.properties
 **/build/
 *.lock
 /Demo/Android/.gradle
+Demo/Android/.gradle/buildOutputCleanup/buildOutputCleanup.lock
+Demo/Android/.gradle/8.13/fileHashes/fileHashes.lock
+Demo/Android/.gradle/8.13/executionHistory/executionHistory.lock
+Demo/Android/.gradle/8.13/executionHistory/executionHistory.bin
+Demo/Android/.gradle/8.13/checksums/sha1-checksums.bin
+Demo/Android/.gradle/8.13/checksums/md5-checksums.bin
+Demo/Android/.gradle/8.13/checksums/checksums.lock
