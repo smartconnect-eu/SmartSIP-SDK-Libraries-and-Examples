@@ -111,14 +111,7 @@ notificationConfig = notificationBranding
 SmartSipSDK.setListener(yourListener)
 </pre>
 
-🛡️ Developer Responsibility & Constraints
-Connectivity & Network
-It is the developer's responsibility to ensure that the device has a stable internet connection (WiFi or Data) before attempting to perform a call. The SDK will fail to register or signal if the network is unreachable.
-
-Runtime Permissions
-Developers must ensure all required system permissions are requested and granted by the user before starting the SDK flow.
-
-Required Permissions (Android):
+Required Permissions :
 Depending on the Android version, your app may need to request these at runtime:
 
 RECORD_AUDIO: For microphone access.
@@ -265,3 +258,12 @@ SmartSipSDK.setSIPDebugMode(enabled: true)
 // Android
 SmartSipSDK.setSIPDebugMode(true)
 </pre>
+
+---
+
+## 🛡️ Developer Responsibility & Constraints
+Connectivity & Network
+It is the developer's responsibility to ensure that the device has a stable internet connection (WiFi or Data) before attempting to perform a call. The SDK will fail to register or signal if the network is unreachable.
+
+Runtime Permissions
+Developers must ensure all required system permissions are requested and granted by the user before starting the SDK flow.
