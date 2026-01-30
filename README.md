@@ -112,7 +112,7 @@ SmartSipSDK.setListener(yourListener)
 </pre>
 
 
-# Required Permissions :
+// Required Permissions :
 Depending on the Android version, your app may need to request these at runtime:
 
 * RECORD_AUDIO: For microphone access.
