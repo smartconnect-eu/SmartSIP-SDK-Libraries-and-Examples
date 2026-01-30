@@ -174,11 +174,11 @@ SmartSipSDK.hangUp()
 ## 📞 The Native Dialer Experience (Android vs iOS)
 The SmartSIP SDK bridges your app to the underlying OS Telecom Frameworks (CallKit on iOS, ConnectionService on Android). This treats your VoIP session as a "real" call rather than simple media.
 
-Why this is Essential:
-Priority: Prevents cellular calls from "cutting off" or overriding your active VoIP audio.
-Hardware Control: Connects Bluetooth headsets and Car buttons (Answer/Hang-up) directly to your app.
-Sync: Links system-wide hardware mute and volume controls directly to your SIP stream.
-Stability: Prevents the OS from killing your app's process during long background calls.
+#### Why this is Essential:
+* Priority: Prevents cellular calls from "cutting off" or overriding your active VoIP audio.
+* Hardware Control: Connects Bluetooth headsets and Car buttons (Answer/Hang-up) directly to your app.
+* Sync: Links system-wide hardware mute and volume controls directly to your SIP stream.
+* Stability: Prevents the OS from killing your app's process during long background calls.
 
 [!WARNING]
 Android Audio Caution: When using a custom Native Dialer, the system manages ringtones at a high priority. It will ring very loud in your ears! Ensure your volume is moderated during initial testing.
