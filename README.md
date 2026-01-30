@@ -162,7 +162,10 @@ SmartSipSDK.sendDTMF(.one)
 SmartSipSDK.sendDTMF(DTMFButton.ONE)
 </pre>
 
-📋 Delegate / Listener Handling
+
+---
+
+## 📋 Delegate / Listener Handling
 iOS (CallDelegate):
 
 <pre>
@@ -183,7 +186,10 @@ if (state == CallState.CONNECTED) { /* Update UI */ }
 }
 </pre>
 
-🛠 Debugging
+
+---
+
+## 🛠 Debugging
 <pre>
 // iOS
 SmartSipSDK.setSIPDebugMode(enabled: true)
