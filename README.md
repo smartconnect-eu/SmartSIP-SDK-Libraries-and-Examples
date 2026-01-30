@@ -20,7 +20,7 @@ The iOS SDK is distributed as a Swift Package Manager (SPM) dependency.
 ### 📦 Installation
 1. In Xcode: **File > Add Package Dependencies...**
 2. URL: `https://github.com/smartconnect-eu/SmartSIP-SDK-Libraries-and-Examples.git`
-3. Version: `0.0.64` or higher.
+3. Version: `0.0.74` or higher.
 
 ### 🚀 Quick Start
 #### 1. Configure Permissions (`Info.plist`)
@@ -81,7 +81,7 @@ android {
 }
 
 dependencies {
-    implementation("cc.smartconnect:smartsip-sdk:0.0.64")
+    implementation("cc.smartconnect:smartsip-sdk:0.0.74")
 }
 </pre>
 
@@ -115,16 +115,13 @@ Required Permissions :
 Depending on the Android version, your app may need to request these at runtime:
 
 RECORD_AUDIO: For microphone access.
-
 POST_NOTIFICATIONS: Required for Android 13+ to show the mandatory foreground service notification.
-
 READ_PHONE_STATE / MANAGE_OWN_CALLS: Required for the Native Dialer / Telecom Framework integration.
 
 ---
 
 ## 📞 Managing Calls
 You can initiate and terminate calls using the high-level API. The SDK handles the underlying SIP signaling and Native Dialer integration automatically.
-
 Outgoing Calls with Custom Metadata
 Both platforms support a customParameters dictionary. This is useful for passing contextual data—such as Session IDs, CRM IDs, or Ticket Numbers—that your SIP server needs to process the call.
 
@@ -178,11 +175,8 @@ The SmartSIP SDK bridges your app to the underlying OS Telecom Frameworks (CallK
 
 Why this is Essential:
 Priority: Prevents cellular calls from "cutting off" or overriding your active VoIP audio.
-
 Hardware Control: Connects Bluetooth headsets and Car buttons (Answer/Hang-up) directly to your app.
-
 Sync: Links system-wide hardware mute and volume controls directly to your SIP stream.
-
 Stability: Prevents the OS from killing your app's process during long background calls.
 
 [!WARNING]
@@ -192,9 +186,7 @@ Android Audio Caution: When using a custom Native Dialer, the system manages rin
 
 ## 🎹 DTMF Support (Signaling & IVR)
 The SDK provides dual-mode support for DTMF (Press 1 for Sales, etc.).
-
 System-Native Interface: When using the native OS call screen, DTMF is handled via In-Band Audio.
-
 Custom Dialer: For high-reliability digital signaling, use the SDK's explicit data methods:
 
 <pre>
