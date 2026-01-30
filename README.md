@@ -66,7 +66,7 @@ dependencyResolutionManagement {
 }
 </pre>
 
-2. Dependency & Java 17 Support
+#### 2. Dependency & Java 17 Support
 Update your app/build.gradle.kts:
 
 <pre>
@@ -85,8 +85,8 @@ dependencies {
 }
 </pre>
 
-🚀 Quick Start
-On Android, you must provide a SmartSipNotificationConfig. This branding is used by the Foreground Service to maintain the call session and prevent the OS from killing the app.
+#### 🚀 Quick Start On Android
+You must provide a SmartSipNotificationConfig. This branding is used by the Foreground Service to maintain the call session and prevent the OS from killing the app.
 
 <pre>
 import cc.smartconnect.smartsip_sdk.SmartSipSDK
