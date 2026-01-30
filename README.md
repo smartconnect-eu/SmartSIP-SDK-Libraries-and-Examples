@@ -164,10 +164,10 @@ customParameters = metadata
 SmartSipSDK.hangUp()
 </pre>
 
-How Custom Parameters Work:
-SIP Headers: These parameters are injected into the SIP INVITE message as custom X-Headers (e.g., X-ticket-id: 12345).
-Server-Side Access: Your SIP Proxy or PBX can read these headers to route the call intelligently or display information to an agent.
-Format: Keys and values should be standard strings. Avoid using special characters or very long strings to stay within SIP packet size limits.
+#### How Custom Parameters Work:
+* SIP Headers: These parameters are injected into the SIP INVITE message as custom X-Headers (e.g., X-ticket-id: 12345).
+* Server-Side Access: Your SIP Proxy or PBX can read these headers to route the call intelligently or display information to an agent.
+* Format: Keys and values should be standard strings. Avoid using special characters or very long strings to stay within SIP packet size limits.
 
 ---
 
