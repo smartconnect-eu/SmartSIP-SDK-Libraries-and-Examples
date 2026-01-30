@@ -1,132 +1,188 @@
-# SmartSip SDK for iOS
+# SmartSIP SDK: Unified Mobile VoIP
 
-A professional-grade, wrapper-based VoIP SDK for SIP communication. This SDK is designed to handle complex signaling and hardware optimization while providing a simple, modern Swift interface for developers.
+A professional-grade, wrapper-based VoIP SDK for SIP communication. This SDK is designed to handle complex signaling and hardware optimization while providing simple, modern interfaces for both iOS and Android.
+
+---
 
 ## 📂 Repository Structure
 
-* **`Package.swift`**: Manifest for Swift Package Manager (SPM).
+* **`Package.swift`**: Manifest for iOS Swift Package Manager (SPM).
 * **`Sources/SmartSipSDK/`**: The public-facing Swift interface and DocC documentation.
-* **`Demo/SmartSipDemo`**: A complete SwiftUI example project demonstrating:
-    * **CallKit Integration**: Standard native iOS call experience.
-    * **Custom UI Flow**: A "Blue Dialer" with proximity sensor and haptic feedback.
-    * **AudioManager & DTMFPlayer**: Best practices for hardware routing and local UI sounds.
+* **`maven-repo/`**: The public Android Maven repository containing compiled AAR binaries.
+* **`Demo/`**: Example projects for both platforms demonstrating best practices.
 
-## 📦 Installation
+---
 
-### Swift Package Manager
+## 🍎 iOS Integration
+
+The iOS SDK is distributed as a Swift Package Manager (SPM) dependency.
+
+### 📦 Installation
 1. In Xcode: **File > Add Package Dependencies...**
 2. URL: `https://github.com/smartconnect-eu/SmartSIP-SDK-Libraries-and-Examples.git`
-3. Version: `0.0.38` or higher.
+3. Version: `0.0.64` or higher.
 
-## 🚀 Quick Start
-
-### 1. Configure Permissions (`Info.plist`)
-You must include the following keys to allow background audio and microphone access:
-
+### 🚀 Quick Start
+#### 1. Configure Permissions (`Info.plist`)
 * `NSMicrophoneUsageDescription`: "This app requires microphone access for VoIP calls."
 * `UIBackgroundModes`: Add `voip` and `audio`.
-* `NSCameraUsageDescription`: Required by underlying dependencies (even if video is not used).
+* `NSCameraUsageDescription`: Required by underlying dependencies.
 
-### 2. Initialization
-Initialize the SDK once at app launch (e.g., in your `AppDelegate` or `App` init).
+#### 2. Initialization
 <pre>
 import SmartSipSDK
+
 SmartSipSDK.initialize(
     token: "YOUR_TOKEN",
     flowId: "YOUR_FLOW_ID",
     domain: "YOUR_DOMAIN"
 )
-</pre>
 
 // Assign a delegate to listen for call states
 SmartSipSDK.setDelegate(yourDelegate)
-📞 Core Functionality
-Managing Calls
-Initiate and terminate calls using the high-level API:
-
-<pre>
-// Initiate an outgoing call
-await SmartSipSDK.makeCall(
-    destinationQueue: "Support_Queue",
-    callerFullName: "John Doe"
-)
-
-// Hang up an active session
-SmartSipSDK.hangUp()
-
-
-// Route audio to the loud speaker
-SmartSipSDK.setSpeakerOn(true)
-
-// Mute the microphone stream
-SmartSipSDK.setMicrophoneMuted(true)
 </pre>
 
+---
 
-DTMF Signaling (IVR Interaction)
-Use the type-safe DTMFButton enum to interact with automated systems (e.g., "Press 1 for Stolen Cards").
-SmartSipSDK.sendDTMF(.one)
+## 🤖 Android Integration
 
-🛠 Best Practices (From the Demo App)
-Proximity Sensor Logic
-In a custom UI, use the proximity sensor to turn the screen off when the phone is held to the ear to prevent "cheek-dialing" and save battery.
+The Android SDK uses a custom Maven repository structure for **public access without requiring GitHub credentials or tokens.**
 
+### 📦 Installation
 
-The SDK automatically configures the AVAudioSession using .voiceChat mode. This ensures:
-Hardware Echo Cancellation is enabled to prevent feedback loops.
-Physical Volume Buttons control the "In-Call" volume instead of the system ringer.
+#### 1. Repository Configuration
+Add the following to your **`settings.gradle.kts`**:
 
-Bluetooth HFP support is automatically handled.
-Decoupled UI Audio (DTMF Sounds)
-
-For DTMF "beeps" in the UI, we recommend playing sounds in the App layer using AudioToolbox system sounds (IDs 1200-1211). This ensures zero latency and a native iOS feel.
-
-📋 Delegate Handling
-Implement the CallDelegate to react to state changes:
 <pre>
-extension YourViewModel: CallDelegate {
-    func callDidChangeState(_ state: CallState) {
-        switch state {
-        case .connected:
-            print("Call is active")
-        case .disconnected, .failed:
-            print("Call ended")
-        default:
-            break
-        }
-    }
-    
-    func callDidFail(withError error: String) {
-        print("Call Error: \(error)")
+dependencyResolutionManagement {
+    repositories {
+        google()
+        mavenCentral()
+        // Public access to SmartSIP SDK (No token required)
+        maven { url = uri("[https://raw.githubusercontent.com/smartconnect-eu/SmartSIP-SDK-Libraries-and-Examples/main/maven-repo](https://raw.githubusercontent.com/smartconnect-eu/SmartSIP-SDK-Libraries-and-Examples/main/maven-repo)") }
+        // Required for underlying SIP engine
+        maven { url = uri("[https://linphone.org/maven_repository](https://linphone.org/maven_repository)") }
     }
 }
 </pre>
 
-Debugging & Troubleshooting
-If you encounter signaling or network issues, enable detailed low-level logs:
+2. Dependency & Java 17 Support
+Update your app/build.gradle.kts:
+
 <pre>
-SmartSipSDK.setSIPDebugMode(enabled: true)
+android {
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+    kotlinOptions {
+        jvmTarget = "17"
+    }
+}
+
+dependencies {
+    implementation("cc.smartconnect:smartsip-sdk:0.0.64")
+}
 </pre>
 
-## 🎹 DTMF Support (Signaling & IVR)
-
-The SmartSip SDK provides dual-mode support for DTMF (Dual-Tone Multi-Frequency) to ensure compatibility with all automated IVR systems.
-
-### 1. CallKit (System-Native Interface)
-When using the native iOS CallKit UI, DTMF is handled via **In-Band Audio**.
-
-* **Automatic Transmission:** When a user presses the "Keypad" on the native iOS call screen, the system generates the corresponding audio frequencies and injects them directly into the outgoing audio stream.
-* **SDK Role:** Because the SDK is already managing the active `AVAudioSession`, these tones are captured and sent to the SIP server automatically without any extra code.
-* **Privacy Note:** CallKit does **not** provide delegate callbacks to the app for system keypad presses. Therefore, explicit "digital data" DTMF cannot be sent via the native system keypad.
-
-
-
-### 2. Custom Dialer (Digital Signaling)
-For high-reliability digital signaling (SIP INFO or RFC 2833), you should implement a custom keypad within your app.
-
-* **Explicit Data:** Use the SDK method to send digital signals that are independent of the audio stream.
-* **Hybrid Usage:** Even during a CallKit session, you can present a custom keypad in your app to send "data-based" DTMF while the system call remains active.
+🚀 Quick Start
+On Android, you must provide a SmartSipNotificationConfig. This branding is used by the Foreground Service to maintain the call session and prevent the OS from killing the app.
 
 <pre>
+import cc.smartconnect.smartsip_sdk.SmartSipSDK
+import cc.smartconnect.smartsip_sdk.SmartSipNotificationConfig
+
+// 1. Configure the Foreground Service notification
+val notificationBranding = SmartSipNotificationConfig(
+title = "SmartSip VoIP",
+message = "Active call in progress...",
+iconResourceId = R.drawable.ic_menu_call // Your custom icon
+)
+
+// 2. Initialize the SDK
+SmartSipSDK.initialize(
+context = applicationContext,
+token = "YOUR_TOKEN",
+flowId = "YOUR_FLOW_ID",
+domain = "YOUR_DOMAIN",
+notificationConfig = notificationBranding
+)
+
+SmartSipSDK.setListener(yourListener)
+</pre>
+
+🛡️ Developer Responsibility & Constraints
+Connectivity & Network
+It is the developer's responsibility to ensure that the device has a stable internet connection (WiFi or Data) before attempting to perform a call. The SDK will fail to register or signal if the network is unreachable.
+
+Runtime Permissions
+Developers must ensure all required system permissions are requested and granted by the user before starting the SDK flow.
+
+Required Permissions (Android):
+Depending on the Android version, your app may need to request these at runtime:
+
+RECORD_AUDIO: For microphone access.
+
+POST_NOTIFICATIONS: Required for Android 13+ to show the mandatory foreground service notification.
+
+READ_PHONE_STATE / MANAGE_OWN_CALLS: Required for the Native Dialer / Telecom Framework integration.
+
+📞 The Native Dialer Experience (Android vs iOS)
+The SmartSIP SDK bridges your app to the underlying OS Telecom Frameworks (CallKit on iOS, ConnectionService on Android). This treats your VoIP session as a "real" call rather than simple media.
+
+Why this is Essential:
+Priority: Prevents cellular calls from "cutting off" or overriding your active VoIP audio.
+
+Hardware Control: Connects Bluetooth headsets and Car buttons (Answer/Hang-up) directly to your app.
+
+Sync: Links system-wide hardware mute and volume controls directly to your SIP stream.
+
+Stability: Prevents the OS from killing your app's process during long background calls.
+
+[!WARNING]
+Android Audio Caution: When using a custom Native Dialer, the system manages ringtones at a high priority. It will ring very loud in your ears! Ensure your volume is moderated during initial testing.
+
+🎹 DTMF Support (Signaling & IVR)
+The SDK provides dual-mode support for DTMF (Press 1 for Sales, etc.).
+
+System-Native Interface: When using the native OS call screen, DTMF is handled via In-Band Audio.
+
+Custom Dialer: For high-reliability digital signaling, use the SDK's explicit data methods:
+
+<pre>
+// iOS
 SmartSipSDK.sendDTMF(.one)
+
+// Android
+SmartSipSDK.sendDTMF(DTMFButton.ONE)
+</pre>
+
+📋 Delegate / Listener Handling
+iOS (CallDelegate):
+
+<pre>
+extension YourViewModel: CallDelegate {
+func callDidChangeState(_ state: CallState) {
+if state == .connected { /* Update UI */ }
+}
+}
+</pre>
+
+Android (CallListener):
+
+<pre>
+class YourViewModel : CallListener {
+override fun onCallStateChanged(state: CallState) {
+if (state == CallState.CONNECTED) { /* Update UI */ }
+}
+}
+</pre>
+
+🛠 Debugging
+<pre>
+// iOS
+SmartSipSDK.setSIPDebugMode(enabled: true)
+
+// Android
+SmartSipSDK.setSIPDebugMode(true)
 </pre>
