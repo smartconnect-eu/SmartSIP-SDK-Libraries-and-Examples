@@ -189,7 +189,12 @@ if (state == CallState.CONNECTED) { /* Update UI */ }
 
 ---
 
-## 🛠 Debugging
+## 🛠 Debugging & SIP Tracing
+For troubleshooting connection issues, registration failures, or audio negotiation problems, you can enable verbose debug mode.
+What enabling Debug Mode does:
+ - Full SIP Traces: Outputs the raw SIP signaling (REGISTER, INVITE, ACK, BYE) directly to the console/Logcat. This is essential for diagnosing server-side rejections or firewall issues.
+ - Stack Internal Logs: Provides low-level details regarding the media engine, hardware echo cancellation, and network state changes.
+ - Lifecycle Events: Detailed logs regarding the Foreground Service (Android) and CallKit (iOS) transition states.
 <pre>
 // iOS
 SmartSipSDK.setSIPDebugMode(enabled: true)
