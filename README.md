@@ -115,9 +115,9 @@ SmartSipSDK.setListener(yourListener)
 # Required Permissions :
 Depending on the Android version, your app may need to request these at runtime:
 
-RECORD_AUDIO: For microphone access.
-POST_NOTIFICATIONS: Required for Android 13+ to show the mandatory foreground service notification.
-READ_PHONE_STATE / MANAGE_OWN_CALLS: Required for the Native Dialer / Telecom Framework integration.
+* RECORD_AUDIO: For microphone access.
+* POST_NOTIFICATIONS: Required for Android 13+ to show the mandatory foreground service notification.
+* READ_PHONE_STATE / MANAGE_OWN_CALLS: Required for the Native Dialer / Telecom Framework integration.
 
 ---
 
