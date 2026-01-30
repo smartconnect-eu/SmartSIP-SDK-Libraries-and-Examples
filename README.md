@@ -127,6 +127,56 @@ POST_NOTIFICATIONS: Required for Android 13+ to show the mandatory foreground se
 
 READ_PHONE_STATE / MANAGE_OWN_CALLS: Required for the Native Dialer / Telecom Framework integration.
 
+---
+
+## 📞 Managing Calls
+You can initiate and terminate calls using the high-level API. The SDK handles the underlying SIP signaling and Native Dialer integration automatically.
+
+Outgoing Calls with Custom Metadata
+Both platforms support a customParameters dictionary. This is useful for passing contextual data—such as Session IDs, CRM IDs, or Ticket Numbers—that your SIP server needs to process the call.
+
+iOS (Swift):
+
+<pre>
+// Initiate an outgoing call with custom metadata
+await SmartSipSDK.makeCall(
+destinationQueue: "Support_Queue",
+callerFullName: "John Doe",
+customParameters: [
+"ticket_id": "12345",
+"user_tier": "premium",
+"source": "mobile_app"
+]
+)
+
+// Hang up an active session
+SmartSipSDK.hangUp()
+</pre>
+
+Android (Kotlin):
+
+<pre>
+// Initiate an outgoing call with custom metadata
+val metadata = mapOf(
+"ticket_id" to "12345",
+"user_tier" to "premium",
+"source" to "mobile_app"
+)
+
+SmartSipSDK.makeCall(
+destinationQueue = "Support_Queue",
+callerFullName = "John Doe",
+customParameters = metadata
+)
+
+// Hang up an active session
+SmartSipSDK.hangUp()
+</pre>
+
+How Custom Parameters Work:
+SIP Headers: These parameters are injected into the SIP INVITE message as custom X-Headers (e.g., X-ticket-id: 12345).
+Server-Side Access: Your SIP Proxy or PBX can read these headers to route the call intelligently or display information to an agent.
+Format: Keys and values should be standard strings. Avoid using special characters or very long strings to stay within SIP packet size limits.
 
 ---
 
@@ -162,7 +212,6 @@ SmartSipSDK.sendDTMF(.one)
 SmartSipSDK.sendDTMF(DTMFButton.ONE)
 </pre>
 
-
 ---
 
 ## 📋 Delegate / Listener Handling
@@ -186,6 +235,20 @@ if (state == CallState.CONNECTED) { /* Update UI */ }
 }
 </pre>
 
+---
+
+## 🔊 Audio & DTMF Control
+Both platforms share a similar interface for managing the active call session:
+
+Audio Routing:
+
+<pre>
+// Route audio to the loud speaker
+SmartSipSDK.setSpeakerOn(true)
+
+// Mute the microphone stream
+SmartSipSDK.setMicrophoneMuted(true)
+</pre>
 
 ---
 
