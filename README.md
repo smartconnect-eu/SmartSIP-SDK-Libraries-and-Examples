@@ -59,9 +59,9 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
         // Public access to SmartSIP SDK (No token required)
-        maven { url = uri("[https://raw.githubusercontent.com/smartconnect-eu/SmartSIP-SDK-Libraries-and-Examples/main/maven-repo](https://raw.githubusercontent.com/smartconnect-eu/SmartSIP-SDK-Libraries-and-Examples/main/maven-repo)") }
+        maven { url = uri("https://raw.githubusercontent.com/smartconnect-eu/SmartSIP-SDK-Libraries-and-Examples/main/maven-repo") }
         // Required for underlying SIP engine
-        maven { url = uri("[https://linphone.org/maven_repository](https://linphone.org/maven_repository)") }
+        maven { url = uri("https://linphone.org/maven_repository") }
     }
 }
 </pre>
