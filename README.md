@@ -228,7 +228,7 @@ if (state == CallState.CONNECTED) { /* Update UI */ }
 
 ---
 
-## 🔊 Audio & DTMF Control
+## 🔊 Audio Control
 Both platforms share a similar interface for managing the active call session:
 
 Audio Routing:
