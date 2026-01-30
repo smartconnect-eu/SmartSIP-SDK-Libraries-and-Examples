@@ -127,7 +127,10 @@ POST_NOTIFICATIONS: Required for Android 13+ to show the mandatory foreground se
 
 READ_PHONE_STATE / MANAGE_OWN_CALLS: Required for the Native Dialer / Telecom Framework integration.
 
-📞 The Native Dialer Experience (Android vs iOS)
+
+---
+
+## 📞 The Native Dialer Experience (Android vs iOS)
 The SmartSIP SDK bridges your app to the underlying OS Telecom Frameworks (CallKit on iOS, ConnectionService on Android). This treats your VoIP session as a "real" call rather than simple media.
 
 Why this is Essential:
@@ -142,7 +145,9 @@ Stability: Prevents the OS from killing your app's process during long backgroun
 [!WARNING]
 Android Audio Caution: When using a custom Native Dialer, the system manages ringtones at a high priority. It will ring very loud in your ears! Ensure your volume is moderated during initial testing.
 
-🎹 DTMF Support (Signaling & IVR)
+---
+
+## 🎹 DTMF Support (Signaling & IVR)
 The SDK provides dual-mode support for DTMF (Press 1 for Sales, etc.).
 
 System-Native Interface: When using the native OS call screen, DTMF is handled via In-Band Audio.
