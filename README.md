@@ -176,14 +176,14 @@ SmartSipSDK.hangUp()
 The SmartSIP SDK provides the option to bridge your app to the underlying OS Telecom Frameworks (CallKit on iOS, ConnectionService on Android).
 
 ### iOS Implementation
-On iOS, the SDK is designed to work seamlessly with CallKit. The included Demo App provides a "Blue Dialer" example that demonstrates how to layer a custom SwiftUI interface on top of the native system state, ensuring you get the benefits of system integration without sacrificing your brand's look and feel.
+On iOS, the SDK is designed to work seamlessly with CallKit. The included Demo App provides the options to choose betweeen "Blue Dialer" ( custom dialer ) that demonstrates how to layer a custom SwiftUI interface on top of the native system state, how you can use a hybrid solution or get the native dialer ensuring you get the benefits of system integration.
 
 ### Android Flexibility
 On Android, you can explicitly toggle this behavior in the API. Using the Native Dialer (Telecom Framework) treats your VoIP session as a "real" call at the OS level, which provides:
 * Priority: Prevents cellular calls from "cutting off" your audio.
 * Hardware Control: Connects Bluetooth and Car buttons (Answer/Hang-up).
 * Sync: Links hardware mute/volume buttons to the SIP stream.
-If disabled, you have total control over the UI, but you must handle audio focus and hardware buttons manually.
+If disabled, you have total control over the UI, but you must handle audio focus manually.
 
 [!WARNING]
 Android Audio Caution: When using a custom Native Dialer, the system manages ringtones at a high priority. It will ring very loud in your ears! Ensure your volume is moderated during initial testing.
@@ -191,8 +191,8 @@ Android Audio Caution: When using a custom Native Dialer, the system manages rin
 ---
 
 ## 🎹 DTMF Support (Signaling & IVR)
-The SDK provides dual-mode support for DTMF (Press 1 for Sales, etc.).
-System-Native Interface: When using the native OS call screen, DTMF is handled via In-Band Audio.
+The SDK provides dual-mode support for DTMF (Press 1 for Stolen Cards, etc.).
+System-Native Interface: When using the native OS call screen, DTMF is handled via In-Band Audio and is not sent via data!!.
 Custom Dialer: For high-reliability digital signaling, use the SDK's explicit data methods:
 
 <pre>
