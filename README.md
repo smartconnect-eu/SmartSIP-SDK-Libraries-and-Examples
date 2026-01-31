@@ -176,7 +176,11 @@ SmartSipSDK.hangUp()
 The SmartSIP SDK provides the option to bridge your app to the underlying OS Telecom Frameworks (CallKit on iOS, ConnectionService on Android).
 
 ### iOS Implementation
-On iOS, the SDK is designed to work seamlessly with CallKit. The included Demo App provides the options to choose betweeen "Blue Dialer" ( custom dialer ) that demonstrates how to layer a custom SwiftUI interface on top of the native system state, how you can use a hybrid solution or get the native dialer ensuring you get the benefits of system integration.
+The included Demo App provides the flexibility to choose between several integration paths:
+* "Blue Dialer" (Custom UI): Demonstrates how to layer a custom SwiftUI interface on top of the native system state.
+* Hybrid Solution: Shows how to use a combination of custom UI and native system features.
+* Native Dialer: Provides a pure system-native experience.
+These options ensure you can leverage the benefits of deep system integration while maintaining complete control over the user experience.
 
 ### Android Flexibility
 On Android, you can explicitly toggle this behavior in the API. Using the Native Dialer (Telecom Framework) treats your VoIP session as a "real" call at the OS level, which provides:
