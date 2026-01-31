@@ -1,5 +1,5 @@
 import Foundation
 public final class SmartSipSDK {
-    public static let sdkVersion = "0.0.74"
+    public static let sdkVersion = "0.0.75"
     public static func setDelegate(_ delegate: Any) {}
 }
