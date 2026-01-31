@@ -178,7 +178,6 @@ The SmartSIP SDK provides the option to bridge your app to the underlying OS Tel
 ### iOS Implementation
 The included Demo App provides the flexibility to choose between several integration paths:
 * "Blue Dialer" (Custom UI): Demonstrates how to layer a custom SwiftUI interface on top of the native system state.
-* Hybrid Solution: Shows how to use a combination of custom UI and native system features.
 * Native Dialer: Provides a pure system-native experience.
 These options ensure you can leverage the benefits of deep system integration while maintaining complete control over the user experience.
 
