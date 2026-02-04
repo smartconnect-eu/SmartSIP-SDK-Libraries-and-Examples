@@ -364,9 +364,8 @@ Native Call Precedence: To prevent audio conflicts and prioritize the cellular n
 While we strive for cross-platform parity, architectural differences between Android Auto and iOS CarPlay result in the following inherent limitations:
 
 #### The "UI Bypass" Effect
-On iOS, CallKit forces the vehicle’s system to treat every VoIP call as a native telephony event, ensuring the car UI takes over the call interface.
-
-On Android, the system frequently treats third-party VoIP calls as secondary "Communication" streams rather than primary system calls.
+ * On iOS, CallKit forces the vehicle’s system to treat every VoIP call as a native telephony event, ensuring the car UI takes over the call interface.
+ * On Android, the system frequently treats third-party VoIP calls as secondary "Communication" streams rather than primary system calls.
 
 #### The Problem on 🤖 Android Auto: Many vehicle head units do not trigger the "In-Call" screen for self-managed VoIP sessions.
 
