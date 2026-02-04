@@ -367,8 +367,8 @@ While we strive for cross-platform parity, architectural differences between And
  * On iOS, CallKit forces the vehicle’s system to treat every VoIP call as a native telephony event, ensuring the car UI takes over the call interface.
  * On Android, the system frequently treats third-party VoIP calls as secondary "Communication" streams rather than primary system calls.
 
-#### The Problem on 🤖 Android Auto: Many vehicle head units do not trigger the "In-Call" screen for self-managed VoIP sessions.
-
+#### The Problem on 🤖 Android Auto:
+Many vehicle head units do not trigger the "In-Call" screen for self-managed VoIP sessions.
 The Result: The car effectively ignores the call event on its display. This forces the mobile device to handle the call independently, as if it were not connected to the vehicle at all.
 
 ---
