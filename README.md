@@ -369,6 +369,7 @@ While we strive for cross-platform parity, architectural differences between And
 
 #### The Problem on 🤖 Android Auto:
 Many vehicle head units do not trigger the "In-Call" screen for self-managed VoIP sessions.
+
 The Result: The car effectively ignores the call event on its display. This forces the mobile device to handle the call independently, as if it were not connected to the vehicle at all.
 
 ---
