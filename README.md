@@ -218,7 +218,7 @@ val metadata = mapOf(
 SmartSipSDK.makeCall(
 destinationQueue = "Support_Queue",
 callerFullName = "John Doe",
-callerPhoneNumber = "0470112233"
+callerPhoneNumber = "0470112233",
 customParameters = metadata
 )
 
