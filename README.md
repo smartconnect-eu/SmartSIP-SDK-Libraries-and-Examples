@@ -193,6 +193,7 @@ iOS (Swift):
 await SmartSipSDK.makeCall(
 destinationQueue: "Support_Queue",
 callerFullName: "John Doe",
+callerPhoneNumber:"0470112233"
 customParameters: [
 "ticket_id": "12345",
 "user_tier": "premium",
@@ -217,6 +218,7 @@ val metadata = mapOf(
 SmartSipSDK.makeCall(
 destinationQueue = "Support_Queue",
 callerFullName = "John Doe",
+callerPhoneNumber = "0470112233"
 customParameters = metadata
 )
 
@@ -378,7 +380,7 @@ The Result: The car effectively ignores the call event on its display. This forc
 
 For technical support, integration inquiries, or to request a **Flow ID** for testing, please reach out to our team:
 
-* **Email:** [info@smartconnect-eu.com](mailto:info@smartconnect-eu.com)
+* **Email:** [info@smartconnect-eu.com](mailto:info@smartconnect.eu)
 * **Website:** [https://smartconnect.eu](https://smartconnect.eu)
 
 ---
