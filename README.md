@@ -193,7 +193,7 @@ iOS (Swift):
 await SmartSipSDK.makeCall(
 destinationQueue: "Support_Queue",
 callerFullName: "John Doe",
-callerPhoneNumber:"0470112233"
+callerPhoneNumber:"0470112233",
 customParameters: [
 "ticket_id": "12345",
 "user_tier": "premium",
