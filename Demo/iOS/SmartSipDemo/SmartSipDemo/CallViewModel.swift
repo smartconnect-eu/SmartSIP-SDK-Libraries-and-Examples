@@ -114,10 +114,32 @@ class CallViewModel: ObservableObject, CallDelegate {
 
     private func fetchDestinations() {
         Task {
-            let targets = await SmartSipSDK.getCallDestinations()
-            self.destinations = targets
-            if let first = targets.first {
-                self.selectedDestination = first
+            do
+            {
+                let targets = try await SmartSipSDK.getCallDestinations()
+                self.destinations = targets
+                if let first = targets.first {
+                    self.selectedDestination = first
+                }
+            }catch{
+                self.destinations = [];
+                await MainActor.run {
+                    let alert = UIAlertController(title: "Error fetching call destinations", message: error.localizedDescription, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default))
+                    
+                    // Find the top controller and present
+                    if let topController = UIApplication.shared.connectedScenes
+                        .compactMap({ $0 as? UIWindowScene })
+                        .flatMap({ $0.windows })
+                        .first(where: { $0.isKeyWindow })?.rootViewController {
+                        
+                        var current = topController
+                        while let presented = current.presentedViewController {
+                            current = presented
+                        }
+                        current.present(alert, animated: true)
+                    }
+                }
             }
         }
     }
