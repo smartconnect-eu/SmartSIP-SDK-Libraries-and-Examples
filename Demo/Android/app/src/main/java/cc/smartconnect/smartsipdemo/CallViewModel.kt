@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 class CallViewModel : ViewModel(), CallListener {
 
     // --- Observable UI State ---
-    private val _useNativeUI = MutableStateFlow(false)
+    val _useNativeUI = MutableStateFlow(false)
     val useNativeUI: StateFlow<Boolean> = _useNativeUI.asStateFlow()
 
     private val _callState = MutableStateFlow(CallState.LOGGED_OUT)
@@ -80,6 +80,20 @@ class CallViewModel : ViewModel(), CallListener {
             currentList[index] = currentList[index].first to value
             _clientDataFields.value = currentList
         }
+    }
+
+    private val _isPipMode = MutableStateFlow(false)
+    /**
+     * Observable state to track if the call UI is currently minimized to PiP mode.
+     */
+    val isPipMode: StateFlow<Boolean> = _isPipMode.asStateFlow()
+
+    /**
+     * Updates the Picture-in-Picture state.
+     * Called from CallActivity's onPictureInPictureModeChanged.
+     */
+    fun setPipMode(enabled: Boolean) {
+        _isPipMode.value = enabled
     }
 
     // --- SDK Callbacks (CallListener) ---

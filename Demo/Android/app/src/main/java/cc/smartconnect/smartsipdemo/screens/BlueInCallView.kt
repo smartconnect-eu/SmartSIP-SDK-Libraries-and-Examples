@@ -22,13 +22,20 @@ import cc.smartconnect.smartsipdemo.CallViewModel
 import cc.smartconnect.smartsipdemo.DTMFPlayer
 
 @Composable
-fun BlueInCallView(viewModel: CallViewModel, isNative: Boolean = false) {
+fun BlueInCallView(
+    viewModel: CallViewModel,
+    isNative: Boolean = false,
+    onMinimize: () -> Unit = {} // Callback to trigger Picture-in-Picture
+) {
     val callStatus by viewModel.callState.collectAsState()
     val isMuted by viewModel.isMuted.collectAsState()
     val isSpeakerOn by viewModel.isSpeakerOn.collectAsState()
     val destination by viewModel.selectedDestination.collectAsState()
 
-    // Determine the theme color based on the flow type
+    // This state should be updated by the Activity via ViewModel
+    // when onPictureInPictureModeChanged is triggered
+    val isPipMode by viewModel.isPipMode.collectAsState()
+
     val themeColor = if (isNative) Color(0xFFD32F2F) else Color(0xFF2196F3)
     val lightThemeColor = if (isNative) Color(0x1AD32F2F) else Color(0x1A2196F3)
     val pressedThemeColor = if (isNative) Color(0x33D32F2F) else Color(0x332196F3)
@@ -43,47 +50,75 @@ fun BlueInCallView(viewModel: CallViewModel, isNative: Boolean = false) {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         containerColor = Color.White,
+        topBar = {
+            // Minimize button - Only visible in Full Screen mode
+            if (!isPipMode) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .statusBarsPadding()
+                        .padding(horizontal = 20.dp, vertical = 10.dp)
+                ) {
+                    Text(
+                        text = "↙️",
+                        fontSize = 28.sp,
+                        modifier = Modifier
+                            .align(Alignment.TopEnd)
+                            .clickable { onMinimize() }
+                            .padding(8.dp)
+                    )
+                }
+            }
+        },
         bottomBar = {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
                     .fillMaxWidth()
                     .navigationBarsPadding()
-                    .padding(bottom = 40.dp)
+                    .padding(bottom = if (isPipMode) 10.dp else 40.dp)
             ) {
-                Row(
-                    modifier = Modifier.padding(bottom = 30.dp),
-                    horizontalArrangement = Arrangement.Center
-                ) {
-                    ControlToggle(
-                        isActive = isMuted,
-                        label = "Mute",
-                        onIcon = "🔇",
-                        offIcon = "🎙️",
-                        themeColor = themeColor,
-                        lightThemeColor = lightThemeColor,
-                        onClick = { viewModel.toggleMute() }
-                    )
-                    Spacer(modifier = Modifier.width(50.dp))
-                    ControlToggle(
-                        isActive = isSpeakerOn,
-                        label = "Speaker",
-                        onIcon = "📢",
-                        offIcon = "📱",
-                        themeColor = themeColor,
-                        lightThemeColor = lightThemeColor,
-                        onClick = { viewModel.toggleSpeaker() }
-                    )
+                // Hide Mute/Speaker toggles in PiP mode to save space
+                if (!isPipMode) {
+                    Row(
+                        modifier = Modifier.padding(bottom = 30.dp),
+                        horizontalArrangement = Arrangement.Center
+                    ) {
+                        ControlToggle(
+                            isActive = isMuted,
+                            label = "Mute",
+                            onIcon = "🔇",
+                            offIcon = "🎙️",
+                            themeColor = themeColor,
+                            lightThemeColor = lightThemeColor,
+                            onClick = { viewModel.toggleMute() }
+                        )
+                        Spacer(modifier = Modifier.width(50.dp))
+                        ControlToggle(
+                            isActive = isSpeakerOn,
+                            label = "Speaker",
+                            onIcon = "📢",
+                            offIcon = "📱",
+                            themeColor = themeColor,
+                            lightThemeColor = lightThemeColor,
+                            onClick = { viewModel.toggleSpeaker() }
+                        )
+                    }
                 }
 
+                // Hang up button - Scales down for PiP
                 Box(
                     contentAlignment = Alignment.Center,
                     modifier = Modifier
-                        .size(85.dp)
+                        .size(if (isPipMode) 60.dp else 85.dp)
                         .background(Color.Red, CircleShape)
                         .clickable { viewModel.endCall() }
                 ) {
-                    Text("📞", fontSize = 32.sp, color = Color.White)
+                    Text(
+                        text = "📞",
+                        fontSize = if (isPipMode) 24.sp else 32.sp,
+                        color = Color.White
+                    )
                 }
             }
         }
@@ -92,37 +127,46 @@ fun BlueInCallView(viewModel: CallViewModel, isNative: Boolean = false) {
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
-                .statusBarsPadding(),
+                .then(if (!isPipMode) Modifier.statusBarsPadding() else Modifier),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
+            // Header Section
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.padding(bottom = 40.dp)
+                modifier = Modifier.padding(bottom = if (isPipMode) 10.dp else 40.dp)
             ) {
-                Text(text = destination, fontSize = 36.sp, color = Color.Black)
+                Text(
+                    text = destination,
+                    fontSize = if (isPipMode) 22.sp else 36.sp,
+                    color = Color.Black,
+                    fontWeight = if (isPipMode) FontWeight.Bold else FontWeight.Normal
+                )
                 Text(
                     text = if (isNative) "SYSTEM MANAGED" else callStatus.value.uppercase(),
-                    fontSize = 14.sp,
+                    fontSize = if (isPipMode) 10.sp else 14.sp,
                     fontWeight = FontWeight.Bold,
                     letterSpacing = 2.sp,
                     color = themeColor,
-                    modifier = Modifier.padding(top = 8.dp)
+                    modifier = Modifier.padding(top = 4.dp)
                 )
             }
 
-            Column(verticalArrangement = Arrangement.spacedBy(20.dp)) {
-                grid.forEach { row ->
-                    Row(horizontalArrangement = Arrangement.spacedBy(35.dp)) {
-                        row.forEach { digit ->
-                            DialerDigitCircle(
-                                digit = digit,
-                                themeColor = themeColor,
-                                lightColor = lightThemeColor,
-                                pressedColor = pressedThemeColor
-                            ) { pressed ->
-                                DTMFPlayer.playTone(pressed)
-                                viewModel.sendDTMF(pressed)
+            // Dialer Grid - Completely hidden in PiP mode
+            if (!isPipMode) {
+                Column(verticalArrangement = Arrangement.spacedBy(20.dp)) {
+                    grid.forEach { row ->
+                        Row(horizontalArrangement = Arrangement.spacedBy(35.dp)) {
+                            row.forEach { digit ->
+                                DialerDigitCircle(
+                                    digit = digit,
+                                    themeColor = themeColor,
+                                    lightColor = lightThemeColor,
+                                    pressedColor = pressedThemeColor
+                                ) { pressed ->
+                                    DTMFPlayer.playTone(pressed)
+                                    viewModel.sendDTMF(pressed)
+                                }
                             }
                         }
                     }
