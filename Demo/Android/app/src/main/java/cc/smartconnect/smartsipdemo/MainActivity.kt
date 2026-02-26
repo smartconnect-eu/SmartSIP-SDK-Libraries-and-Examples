@@ -75,7 +75,6 @@ class MainActivity : ComponentActivity() {
 
                 // Logic to handle Call UI transition
                 // When the call starts, we launch the separate CallActivity.
-                // This satisfies Joran's requirement for independent navigation.
                 LaunchedEffect(callState) {
                     if (callState == CallState.DIALING || callState == CallState.RINGING || callState == CallState.CONNECTED) {
                         val intent = Intent(this@MainActivity, CallActivity::class.java).apply {
