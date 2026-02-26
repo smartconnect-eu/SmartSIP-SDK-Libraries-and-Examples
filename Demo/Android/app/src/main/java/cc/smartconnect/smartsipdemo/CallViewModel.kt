@@ -4,6 +4,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import cc.smartconnect.smartsip_sdk.*
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -119,8 +120,21 @@ class CallViewModel : ViewModel(), CallListener {
     fun fetchDestinations() {
         viewModelScope.launch {
             _isLoading.value = true
+            // Give the SDK a moment to ensure the Context and SIP stack are 'warm'
+            delay(500)
+
             try {
-                _destinations.value = SmartSipSDK.getCallDestinations()
+                val result = SmartSipSDK.getCallDestinations()
+                android.util.Log.d("SmartSipSDK", "Attempting fetch... Size: ${result.size}")
+
+                if (result.isEmpty()) {
+                    // Optional: Trigger one retry if it's empty the first time
+                    delay(1000)
+                    val retryResult = SmartSipSDK.getCallDestinations()
+                    _destinations.value = retryResult
+                } else {
+                    _destinations.value = result
+                }
             } catch (e: Exception) {
                 _destinations.value = emptyList()
             } finally {

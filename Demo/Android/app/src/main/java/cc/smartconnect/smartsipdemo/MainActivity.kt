@@ -58,9 +58,9 @@ class MainActivity : ComponentActivity() {
 
         SmartSipSDK.initialize(
             context = applicationContext,
-            token = "xxxxx",
-            flowId = "yyyyy",
-            domain = "zzzz",
+            token = "XXXX",
+            flowId = "YYYYY",
+            domain = "ZZZZ",
             notificationConfig = notificationBranding
         )
 
