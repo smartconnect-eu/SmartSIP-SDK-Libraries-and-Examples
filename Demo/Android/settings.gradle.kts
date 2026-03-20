@@ -18,7 +18,7 @@ dependencyResolutionManagement {
         mavenCentral()
         // Everyone can access this without a token
         maven { url = uri("https://raw.githubusercontent.com/smartconnect-eu/SmartSIP-SDK-Libraries-and-Examples/main/maven-repo") }
-        maven { url = uri("https://linphone.org/maven_repository") }
+        maven { url = uri("https://download.linphone.org/maven_repository") }
     }
 }
 
