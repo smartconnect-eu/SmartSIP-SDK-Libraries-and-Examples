@@ -161,6 +161,13 @@ Before calling makeCall(), always verify that the permissions are granted. If th
 ## 📞 Managing Calls
 You can initiate and terminate calls using the high-level API. The SDK handles the underlying SIP signaling while allowing you to choose between native OS integration or a fully custom UI.
 
+For Android, the recommended outgoing call flow is now split into two steps:
+
+1. `createSession(...)`
+2. `makeCall(session, useNativeDialer)`
+
+This gives your app a clear checkpoint to run async validations, wait for backend approval, or perform any other pre-call work before placing the SIP call.
+
 ### Discovering Destinations
 Before making a call, you can fetch the available queues or destinations configured for your Flow ID. This allows you to build a dynamic list in your UI.
 
@@ -184,7 +191,7 @@ The `Destination` object provides the following attributes:
 * `isAvailable`: Boolean status of the destination.
 
 ### Outgoing Calls with Custom Metadata
-Both platforms support a customParameters dictionary. This is useful for passing contextual data—such as Session IDs, CRM IDs, or Ticket Numbers—that your SIP server needs to process the call.
+Both platforms support passing custom data into the session creation step. This is useful for sending contextual values—such as Session IDs, CRM IDs, or Ticket Numbers—that your SIP server needs to process the call.
 
 iOS (Swift):
 
@@ -208,19 +215,28 @@ SmartSipSDK.hangUp()
 Android (Kotlin):
 
 <pre>
-// Initiate an outgoing call with custom metadata
+// Create the call session first
 val metadata = mapOf(
 "ticket_id" to "12345",
 "user_tier" to "premium",
 "source" to "mobile_app"
 )
 
-SmartSipSDK.makeCall(
+val session = SmartSipSDK.createSession(
 destinationQueue = "Support_Queue",
 callerFullName = "John Doe",
 callerPhoneNumber = "0470112233",
-customParameters = metadata
+clientData = metadata
 )
+
+// Run any async checks or waits here before placing the call
+
+if (session != null) {
+SmartSipSDK.makeCall(
+session,
+useNativeDialer = false
+)
+}
 
 // Hang up an active session
 SmartSipSDK.hangUp()

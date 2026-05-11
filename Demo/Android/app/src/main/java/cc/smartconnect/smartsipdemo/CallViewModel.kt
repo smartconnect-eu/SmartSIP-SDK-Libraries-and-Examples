@@ -164,13 +164,18 @@ class CallViewModel : ViewModel(), CallListener {
             customData["platform"] = "Android"
             customData["app_version"] = "1.0.0"
 
-            SmartSipSDK.makeCall(
+            val session = SmartSipSDK.createSession(
                 destinationQueue = destination,
                 callerFullName = userFullName.value.ifBlank { "Android User" },
                 callerPhoneNumber = userPhoneNumber.value.ifBlank { null },
-                clientData = customData,
-                useNativeDialer = _useNativeUI.value
+                clientData = customData
             )
+
+            // Async checkpoint: run any validations, waits, or backend checks here.
+            // Once those complete, continue with the actual call placement.
+            session?.let {
+                SmartSipSDK.makeCall(it, useNativeDialer = _useNativeUI.value)
+            }
         }
     }
 
