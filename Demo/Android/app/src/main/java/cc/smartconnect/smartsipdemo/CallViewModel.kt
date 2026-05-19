@@ -143,9 +143,10 @@ class CallViewModel : ViewModel(), CallListener {
                 clientData = customData
             )
 
-            // Async checkpoint: run any validations, waits, or backend checks here.
-            // Once those complete, continue with the actual call placement.
             session?.let {
+                // NOTE: This is the handoff point between session creation and SIP invite.
+                // You can perform any async/wait operations here (extra API validations,
+                // feature flags, fraud checks, consent flows), then continue with makeCall.
                 SmartSipSDK.makeCall(it, useNativeDialer = _useNativeUI.value)
             }
         }
