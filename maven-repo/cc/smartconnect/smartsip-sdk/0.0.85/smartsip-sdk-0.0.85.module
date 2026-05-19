@@ -1,0 +1,208 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "cc.smartconnect",
+    "module": "smartsip-sdk",
+    "version": "0.0.85",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "8.13"
+    }
+  },
+  "variants": [
+    {
+      "name": "releaseVariantReleaseApiPublication",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.libraryelements": "aar",
+        "org.gradle.usage": "java-api"
+      },
+      "dependencies": [
+        {
+          "group": "org.linphone.bundled",
+          "module": "linphone-sdk-android",
+          "version": {
+            "requires": "5.4.114"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlinx",
+          "module": "kotlinx-coroutines-android",
+          "version": {
+            "requires": "1.8.0"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlinx",
+          "module": "kotlinx-serialization-json",
+          "version": {
+            "requires": "1.7.1"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib",
+          "version": {
+            "requires": "2.0.21"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "smartsip-sdk-0.0.85.aar",
+          "url": "smartsip-sdk-0.0.85.aar",
+          "size": 76490,
+          "sha512": "bbd77fc56c41409813a47bd663302563b8d0d4cc1c6ba29206244ae8c2928a48f4376fc1a63477098c5a18068ce313577090527893a9e611e944afb52d025c4a",
+          "sha256": "a379342c8299261992cb7c6d40858c820876d6135dbce27d99fa3b08c7b821e0",
+          "sha1": "81be14cdd7e4848b5732a42fde87390c064966b6",
+          "md5": "d078b2a6fde695239c60940d696da3ff"
+        }
+      ]
+    },
+    {
+      "name": "releaseVariantReleaseRuntimePublication",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.libraryelements": "aar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "dependencies": [
+        {
+          "group": "androidx.core",
+          "module": "core-ktx",
+          "version": {
+            "requires": "1.17.0"
+          }
+        },
+        {
+          "group": "androidx.appcompat",
+          "module": "appcompat",
+          "version": {
+            "requires": "1.6.1"
+          }
+        },
+        {
+          "group": "com.google.android.material",
+          "module": "material",
+          "version": {
+            "requires": "1.13.0"
+          }
+        },
+        {
+          "group": "androidx.activity",
+          "module": "activity-compose",
+          "version": {
+            "requires": "1.9.0"
+          }
+        },
+        {
+          "group": "androidx.activity",
+          "module": "activity-ktx",
+          "version": {
+            "requires": "1.9.0"
+          }
+        },
+        {
+          "group": "androidx.lifecycle",
+          "module": "lifecycle-viewmodel-ktx",
+          "version": {
+            "requires": "2.8.0"
+          }
+        },
+        {
+          "group": "androidx.compose.foundation",
+          "module": "foundation",
+          "version": {
+            "requires": "1.7.0"
+          }
+        },
+        {
+          "group": "androidx.compose.ui",
+          "module": "ui",
+          "version": {
+            "requires": "1.7.0"
+          }
+        },
+        {
+          "group": "androidx.compose.material3",
+          "module": "material3",
+          "version": {
+            "requires": "1.3.0"
+          }
+        },
+        {
+          "group": "androidx.annotation",
+          "module": "annotation",
+          "version": {
+            "requires": "1.7.0"
+          }
+        },
+        {
+          "group": "org.linphone.bundled",
+          "module": "linphone-sdk-android",
+          "version": {
+            "requires": "5.4.114"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlinx",
+          "module": "kotlinx-coroutines-android",
+          "version": {
+            "requires": "1.8.0"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlinx",
+          "module": "kotlinx-serialization-json",
+          "version": {
+            "requires": "1.7.1"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib",
+          "version": {
+            "requires": "2.0.21"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "smartsip-sdk-0.0.85.aar",
+          "url": "smartsip-sdk-0.0.85.aar",
+          "size": 76490,
+          "sha512": "bbd77fc56c41409813a47bd663302563b8d0d4cc1c6ba29206244ae8c2928a48f4376fc1a63477098c5a18068ce313577090527893a9e611e944afb52d025c4a",
+          "sha256": "a379342c8299261992cb7c6d40858c820876d6135dbce27d99fa3b08c7b821e0",
+          "sha1": "81be14cdd7e4848b5732a42fde87390c064966b6",
+          "md5": "d078b2a6fde695239c60940d696da3ff"
+        }
+      ]
+    },
+    {
+      "name": "releaseVariantReleaseJavaDocPublication",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "javadoc",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "smartsip-sdk-0.0.85-javadoc.jar",
+          "url": "smartsip-sdk-0.0.85-javadoc.jar",
+          "size": 354892,
+          "sha512": "bfb19e4d02d11c90184025750854ab54c19988b3188416c913e14bc457bf3e7f99b94d464d8b794d7c417f4a0a1da98e1367e0bdaded98b921d975dba3b8603d",
+          "sha256": "48c51dee8afc7bc0baa278d9bdb292e27fe5e3bfb82c46d9eed161288718ebe0",
+          "sha1": "9836cfa906c468f8ef489cc7c47821259a20a215",
+          "md5": "905ef8816c23b662cc92c1acbb7c8866"
+        }
+      ]
+    }
+  ]
+}

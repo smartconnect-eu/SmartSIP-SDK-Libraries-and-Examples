@@ -3,8 +3,8 @@
   <groupId>cc.smartconnect</groupId>
   <artifactId>smartsip-sdk</artifactId>
   <versioning>
-    <latest>0.0.84</latest>
-    <release>0.0.84</release>
+    <latest>0.0.85</latest>
+    <release>0.0.85</release>
     <versions>
       <version>0.0.54</version>
       <version>0.0.61</version>
@@ -23,7 +23,8 @@
       <version>0.0.82</version>
       <version>0.0.83</version>
       <version>0.0.84</version>
+      <version>0.0.85</version>
     </versions>
-    <lastUpdated>20260511131906</lastUpdated>
+    <lastUpdated>20260519101120</lastUpdated>
   </versioning>
 </metadata>
