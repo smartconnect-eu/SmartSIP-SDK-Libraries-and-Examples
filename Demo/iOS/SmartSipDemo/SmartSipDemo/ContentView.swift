@@ -79,6 +79,13 @@ struct ContentView: View {
             .fullScreenCover(isPresented: $viewModel.showCustomUI) {
                 BlueInCallView(viewModel: viewModel)
             }
+            .alert("Permission Required", isPresented: $viewModel.isAlertPresented) {
+                Button("OK", role: .cancel) {
+                    viewModel.alertMessage = nil
+                }
+            } message: {
+                Text(viewModel.alertMessage ?? "")
+            }
         }
     }
 }

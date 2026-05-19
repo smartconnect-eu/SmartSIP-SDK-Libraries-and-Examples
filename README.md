@@ -1,5 +1,5 @@
 # SmartSIP SDK: Unified Mobile VoIP
-![iOS](https://img.shields.io/badge/platform-iOS-blue) ![Android](https://img.shields.io/badge/platform-Android-green) ![License](https://img.shields.io/badge/license-Commercial-red) ![Version](https://img.shields.io/badge/version-0.0.64-orange)
+![iOS](https://img.shields.io/badge/platform-iOS-blue) ![Android](https://img.shields.io/badge/platform-Android-green) ![License](https://img.shields.io/badge/license-Commercial-red) ![Version](https://img.shields.io/badge/version-0.0.86-orange)
 
 A professional-grade, wrapper-based VoIP SDK for SIP communication. This SDK is designed to handle complex signaling and hardware optimization while providing simple, modern interfaces for both iOS and Android.
 
@@ -42,7 +42,7 @@ The iOS SDK is distributed as a Swift Package Manager (SPM) dependency.
 ### 📦 Installation
 1. In Xcode: **File > Add Package Dependencies...**
 2. URL: `https://github.com/smartconnect-eu/SmartSIP-SDK-Libraries-and-Examples.git`
-3. Version: `0.0.77` or higher.
+3. Version: `0.0.86` or higher.
 
 ### 🚀 Quick Start
 #### 1. Configure Permissions (`Info.plist`)
@@ -103,7 +103,7 @@ android {
 }
 
 dependencies {
-    implementation("cc.smartconnect:smartsip-sdk:0.0.77")
+    implementation("cc.smartconnect:smartsip-sdk:0.0.86")
 }
 </pre>
 
@@ -161,12 +161,50 @@ Before calling makeCall(), always verify that the permissions are granted. If th
 ## 📞 Managing Calls
 You can initiate and terminate calls using the high-level API. The SDK handles the underlying SIP signaling while allowing you to choose between native OS integration or a fully custom UI.
 
-For Android, the recommended outgoing call flow is now split into two steps:
+The recommended outgoing call flow for both platforms is now split into two steps:
 
 1. `createSession(...)`
-2. `makeCall(session, useNativeDialer)`
+2. `makeCall(session, ...)`
 
 This gives your app a clear checkpoint to run async validations, wait for backend approval, or perform any other pre-call work before placing the SIP call.
+
+### ⚠️ App Lifecycle Management
+
+When your app is truly terminating, you **must** call `onTerminate()` to gracefully shut down any active call session. This ensures proper SIP cleanup and prevents lingering registrations.
+
+Do **not** call `onTerminate()` on every iOS background transition if your app is expected to keep calls active while backgrounded.
+
+iOS (Swift):
+<pre>
+import SwiftUI
+import UIKit
+
+final class AppDelegate: NSObject, UIApplicationDelegate {
+    func applicationWillTerminate(_ application: UIApplication) {
+        SmartSipSDK.onTerminate()
+    }
+}
+
+struct MyApp: App {
+    @UIApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
+
+    var body: some Scene {
+        WindowGroup {
+            ContentView()
+        }
+    }
+}
+</pre>
+
+Android (Kotlin):
+<pre>
+class MainActivity : AppCompatActivity() {
+    override fun onDestroy() {
+        super.onDestroy()
+        SmartSipSDK.onTerminate()
+    }
+}
+</pre>
 
 ### Discovering Destinations
 Before making a call, you can fetch the available queues or destinations configured for your Flow ID. This allows you to build a dynamic list in your UI.
@@ -196,17 +234,23 @@ Both platforms support passing custom data into the session creation step. This 
 iOS (Swift):
 
 <pre>
-// Initiate an outgoing call with custom metadata
-await SmartSipSDK.makeCall(
-destinationQueue: "Support_Queue",
-callerFullName: "John Doe",
-callerPhoneNumber:"0470112233",
-customParameters: [
-"ticket_id": "12345",
-"user_tier": "premium",
-"source": "mobile_app"
-]
+// Step 1: Create a session with custom metadata
+let session = try? await SmartSipSDK.createSessionOrThrow(
+    destinationQueue: "Support_Queue",
+    callerFullName: "John Doe",
+    callerPhoneNumber: "0470112233",
+    clientData: [
+        "ticket_id": "12345",
+        "user_tier": "premium",
+        "source": "mobile_app"
+    ]
 )
+
+// Step 2: Run any async validations here (e.g., backend approval, UI confirmations)
+if let session = session {
+    // Place the call after all validations pass
+    await SmartSipSDK.makeCall(session)
+}
 
 // Hang up an active session
 SmartSipSDK.hangUp()

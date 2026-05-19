@@ -7,6 +7,7 @@
 import smartsip_sdk
 import Combine
 import UIKit
+import AVFoundation
 
 enum CallFlow {
     case callKit, customUI
@@ -80,6 +81,8 @@ class CallViewModel: ObservableObject, CallDelegate {
     @Published var userPhoneNumber: String = ""
     @Published var clientDataString: String = ""
     @Published var jsonErrorMessage: String? = nil
+    @Published var alertMessage: String? = nil
+    @Published var isAlertPresented: Bool = false
     
     @Published var activeFlow: CallFlow = .callKit
     @Published var showCustomUI: Bool = false
@@ -90,9 +93,9 @@ class CallViewModel: ObservableObject, CallDelegate {
 
     init() {
         SmartSipSDK.initialize(
-            token: "XXXXXX",
-            flowId: "YYYYYY",
-            domain: "ZZZZZZZ"
+            token: "xxxxxx",
+                      flowId: "yyyyyy",
+                      domain: "zzzzzz"
         )
         
         SmartSipSDK.setSIPDebugMode(enabled: false)
@@ -160,6 +163,14 @@ class CallViewModel: ObservableObject, CallDelegate {
             callStatus = "Error: No destination selected"
             return
         }
+
+        let microphonePermission = AVAudioSession.sharedInstance().recordPermission
+        guard microphonePermission == .granted else {
+            let message = "Microphone permission is required to start a call. Please enable it in Settings."
+            callStatus = "Error: \(message)"
+            presentAlert(message)
+            return
+        }
         
         callStatus = "Creating Session..."
         let clientData = parseClientData()
@@ -182,11 +193,25 @@ class CallViewModel: ObservableObject, CallDelegate {
         //start the SIP call
         Task {
             try? await Task.sleep(nanoseconds: 100_000_000)
-            await SmartSipSDK.makeCall(
-                clientData: clientData,
-                destinationQueue: selectedDestination,
-                callerPhoneNumber: userPhoneNumber.isEmpty ? nil : userPhoneNumber,
-                callerFullName: userFullName.isEmpty ? nil : userFullName)
+            do {
+                let session = try await SmartSipSDK.createSessionOrThrow(
+                    clientData: clientData,
+                    destinationQueue: selectedDestination,
+                    callerPhoneNumber: userPhoneNumber.isEmpty ? nil : userPhoneNumber,
+                    callerFullName: userFullName.isEmpty ? nil : userFullName
+                )
+
+                // Async checkpoint: run validations/waits/backend checks here.
+                await SmartSipSDK.makeCall(session)
+            } catch {
+                await MainActor.run {
+                    self.callStatus = "Error: \(error.localizedDescription)"
+                    self.isCallActive = false
+                }
+                if self.activeFlow == .callKit {
+                    CallKitManager.shared.reportFailed()
+                }
+            }
         }
     }
 
@@ -225,6 +250,11 @@ class CallViewModel: ObservableObject, CallDelegate {
             jsonErrorMessage = "Invalid JSON format"
             return nil
         }
+    }
+
+    private func presentAlert(_ message: String) {
+        alertMessage = message
+        isAlertPresented = true
     }
         
 }
