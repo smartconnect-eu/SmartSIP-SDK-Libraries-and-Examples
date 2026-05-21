@@ -48,7 +48,7 @@ class MainActivity : ComponentActivity() {
         // 2. Initialize the SmartSip SDK with custom notification branding
         // This branding is used by the background service to maintain the call session.
         val notificationBranding = SmartSipNotificationConfig(
-            title = "SmartSip VoIP",
+            title = "* - SmartSip VoIP - *",
             message = "Active call in progress...",
             iconResourceId = R.drawable.ic_menu_call // Replace with your R.drawable.custom_icon
         )
