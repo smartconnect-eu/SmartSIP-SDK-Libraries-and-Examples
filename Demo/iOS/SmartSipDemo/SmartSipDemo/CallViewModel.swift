@@ -94,8 +94,8 @@ class CallViewModel: ObservableObject, CallDelegate {
     init() {
         SmartSipSDK.initialize(
             token: "xxxxxx",
-                      flowId: "yyyyyy",
-                      domain: "zzzzzz"
+            flowId: "yyyyyy",
+            domain: "zzzzzz"
         )
         
         SmartSipSDK.setSIPDebugMode(enabled: false)
@@ -164,13 +164,37 @@ class CallViewModel: ObservableObject, CallDelegate {
             return
         }
 
-        let microphonePermission = AVAudioSession.sharedInstance().recordPermission
-        guard microphonePermission == .granted else {
-            let message = "Microphone permission is required to start a call. Please enable it in Settings."
-            callStatus = "Error: \(message)"
-            presentAlert(message)
-            return
+        Task { @MainActor in
+            let granted = await requestMicrophonePermissionIfNeeded()
+            guard granted else {
+                let message = "Microphone permission is required to start a call. Please enable it in Settings."
+                self.callStatus = "Error: \(message)"
+                self.presentAlert(message)
+                return
+            }
+            self.launchCallFlow()
         }
+    }
+
+    private func requestMicrophonePermissionIfNeeded() async -> Bool {
+        let session = AVAudioSession.sharedInstance()
+        switch session.recordPermission {
+        case .granted:
+            return true
+        case .undetermined:
+            return await withCheckedContinuation { continuation in
+                session.requestRecordPermission { granted in
+                    continuation.resume(returning: granted)
+                }
+            }
+        case .denied:
+            return false
+        @unknown default:
+            return false
+        }
+    }
+
+    private func launchCallFlow() {
         
         callStatus = "Creating Session..."
         let clientData = parseClientData()

@@ -55,9 +55,9 @@ class MainActivity : ComponentActivity() {
 
         SmartSipSDK.initialize(
             context = applicationContext,
-            token = "SS_SA_ZBuDfr7dDD4gF8cJ",
-            flowId = "DF00683B-181D-5665-9AE0-41133D6F9D74",
-            domain = "webrtc.smartcall.cc",
+            token = "xxxxxx",
+            flowId = "yyyyyy",
+            domain = "zzzzzz",
             notificationConfig = notificationBranding
         )
 
