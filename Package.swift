@@ -6,7 +6,7 @@ let package = Package(
     products: [.library(name: "SmartSipSDK", targets: ["SmartSipSDK"])],
     targets: [
         .target(name: "SmartSipSDK", dependencies: [.target(name: "SmartSipImplementation"), .target(name: "linphonesw")], path: "Sources/SmartSipSDK"),
-        .binaryTarget(name: "SmartSipImplementation", url: "https://github.com/smartconnect-eu/SmartSIP-SDK-Libraries-and-Examples/releases/download/0.0.90/SmartSipImplementation-0.0.90.xcframework.zip", checksum: "e9d6c8833f244b24c9129abb34e0bc537bcbe916d39ec7f86959d282c21dc739"),
+        .binaryTarget(name: "SmartSipImplementation", url: "https://github.com/smartconnect-eu/SmartSIP-SDK-Libraries-and-Examples/releases/download/0.0.90/SmartSipImplementation-0.0.90.xcframework.zip", checksum: "2120e750f32cfed6dfbe1a65b5e7ddd6dda7778b8c93a8c9f437f5dd87105855"),
         .binaryTarget(name: "bctoolboxios", url: "https://github.com/smartconnect-eu/SmartSIP-SDK-Libraries-and-Examples/releases/download/0.0.90/bctoolbox-ios.xcframework.zip", checksum: "8fe6a14ae4863e7f4e31940e08857bb31eb7e03ae979df021f38e3e5f3db1b2c"),
         .binaryTarget(name: "bctoolbox", url: "https://github.com/smartconnect-eu/SmartSIP-SDK-Libraries-and-Examples/releases/download/0.0.90/bctoolbox.xcframework.zip", checksum: "25ebaede86b08199fb7f6bc6dfd33358f315ab92ca50fc4f4e36d4a850a61904"),
         .binaryTarget(name: "belcard", url: "https://github.com/smartconnect-eu/SmartSIP-SDK-Libraries-and-Examples/releases/download/0.0.90/belcard.xcframework.zip", checksum: "84d750ce03b0442f526fc7497cf5a9b7db94ad24ad3a0387c2160c0bee26d8c6"),
