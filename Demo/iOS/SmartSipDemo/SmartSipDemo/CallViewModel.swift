@@ -93,12 +93,12 @@ class CallViewModel: ObservableObject, CallDelegate {
 
     init() {
         SmartSipSDK.initialize(
-            token: "xxxxxx",
-            flowId: "yyyyyy",
-            domain: "zzzzzz"
+            token : "SS_SA_mLBL3BQec6cxNLXqHHubNNkkwrkk",
+            flowId : "718B7B4E-96D8-533F-98E3-A82496AE147E",
+            domain : "wab.smartcall.cc"
         )
         
-        SmartSipSDK.setSIPDebugMode(enabled: false)
+        SmartSipSDK.setSIPDebugMode(enabled: true)
         SmartSipSDK.setDelegate(self)
         // --- Add CallKit Callbacks ---
         CallKitManager.shared.onMuteToggle = { [weak self] isMuted in
