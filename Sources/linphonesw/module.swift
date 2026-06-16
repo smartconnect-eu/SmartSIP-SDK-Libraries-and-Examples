@@ -1,5 +1,5 @@
-// Re-export Linphone binary modules through the  shim target.
-// This preserves existing SDK imports: .
+// Re-export Linphone binary modules through the `linphonesw` shim target.
+// This preserves existing SDK imports: `import linphonesw`.
 
 #if canImport(linphone)
 @_exported import linphone
