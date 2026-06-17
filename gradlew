@@ -88,6 +88,17 @@ APP_BASE_NAME=${0##*/}
 # Discard cd standard output in case $CDPATH is set (https://github.com/gradle/gradle/issues/25036)
 APP_HOME=$( cd -P "${APP_HOME:-./}" > /dev/null && printf '%s\n' "$PWD" ) || exit
 
+# Force Java 17 for Android builds on macOS when available.
+if [ -x "/usr/libexec/java_home" ] ; then
+    JAVA17_HOME=$( /usr/libexec/java_home -v 17 2>/dev/null || true )
+    if [ -n "$JAVA17_HOME" ] ; then
+        JAVA_HOME="$JAVA17_HOME"
+        export JAVA_HOME
+        PATH="$JAVA_HOME/bin:$PATH"
+        export PATH
+    fi
+fi
+
 # Use the maximum available, or set MAX_FD != -1 to use that value.
 MAX_FD=maximum
 
@@ -140,6 +151,12 @@ else
 Please set the JAVA_HOME variable in your environment to match the
 location of your Java installation."
     fi
+fi
+
+JAVA_VERSION_LINE=$("$JAVACMD" -version 2>&1 | head -n 1)
+JAVA_MAJOR=$("$JAVACMD" -version 2>&1 | awk -F[\".] '/version/ { if ($2 == "1") print $3; else print $2; exit }')
+if [ "$JAVA_MAJOR" != "17" ] ; then
+    die "ERROR: This Android project requires Java 17. Current runtime: $JAVA_VERSION_LINE"
 fi
 
 # Increase the maximum file descriptors if we can.

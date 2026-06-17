@@ -16,6 +16,9 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        // Prefer the local checked-out artifacts when this demo is run from the
+        // SmartSIP-SDK-Libraries-and-Examples repository.
+        maven { url = uri("../../maven-repo") }
         // Everyone can access this without a token
         maven { url = uri("https://raw.githubusercontent.com/smartconnect-eu/SmartSIP-SDK-Libraries-and-Examples/main/maven-repo") }
         maven { url = uri("https://download.linphone.org/maven_repository") }
