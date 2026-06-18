@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		1E53B5B92FE3DF9200828B0D /* SmartSipSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 1E53B5B82FE3DF9200828B0D /* SmartSipSDK */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		1E929C0D2F15387B00CF04CA /* SmartSipDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmartSipDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -36,6 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1E53B5B92FE3DF9200828B0D /* SmartSipSDK in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +83,7 @@
 			);
 			name = SmartSipDemo;
 			packageProductDependencies = (
+				1E53B5B82FE3DF9200828B0D /* SmartSipSDK */,
 			);
 			productName = SmartSipDemo;
 			productReference = 1E929C0D2F15387B00CF04CA /* SmartSipDemo.app */;
@@ -108,6 +114,7 @@
 			mainGroup = 1E929C042F15387B00CF04CA;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
+				1E53B5B72FE3DF9200828B0D /* XCRemoteSwiftPackageReference "SmartSIP-SDK-Libraries-and-Examples" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 1E929C0E2F15387B00CF04CA /* Products */;
@@ -353,6 +360,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		1E53B5B72FE3DF9200828B0D /* XCRemoteSwiftPackageReference "SmartSIP-SDK-Libraries-and-Examples" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/smartconnect-eu/SmartSIP-SDK-Libraries-and-Examples";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.0.92;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		1E53B5B82FE3DF9200828B0D /* SmartSipSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1E53B5B72FE3DF9200828B0D /* XCRemoteSwiftPackageReference "SmartSIP-SDK-Libraries-and-Examples" */;
+			productName = SmartSipSDK;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 1E929C052F15387B00CF04CA /* Project object */;
 }
