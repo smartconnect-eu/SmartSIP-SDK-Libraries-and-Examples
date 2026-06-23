@@ -93,9 +93,9 @@ class CallViewModel: ObservableObject, CallDelegate {
 
     init() {
         SmartSipSDK.initialize(
-            token : "xxxx",
-            flowId : "yyy",
-            domain : "zzz",
+            token : "xxxxx",
+            flowId : "yyyyy",
+            domain : "zzzz"
         )
         
         SmartSipSDK.setSIPDebugMode(enabled: true)
