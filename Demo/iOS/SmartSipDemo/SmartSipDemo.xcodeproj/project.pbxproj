@@ -367,7 +367,7 @@
 			repositoryURL = "https://github.com/smartconnect-eu/SmartSIP-SDK-Libraries-and-Examples";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 0.1.0;
+				minimumVersion = 0.1.17;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
